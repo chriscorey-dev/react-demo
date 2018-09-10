@@ -16,5 +16,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "This project is made with react and bootstrap so far. Just getting my bearings with react.",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@chris-corey.com:/srv/git/react-demo.git"
+  },
+  "keywords": [],
+  "author": "Chris Corey",
+  "license": "ISC"
 }
