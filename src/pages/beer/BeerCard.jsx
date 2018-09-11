@@ -7,6 +7,14 @@ class BeerCard extends Component {
       <div className="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-2 mt-2">
         <div className="card">
           <div className="card-header">
+            <img
+              className="mr-3 float-left img-fluid"
+              src={beer.image_url}
+              style={{
+                height: "100px"
+              }}
+              alt="Card image cap"
+            />
             <h4 className="mb-0">{beer.name}</h4>
             <p
               className="card-text mt-0 font-italic"
@@ -15,6 +23,7 @@ class BeerCard extends Component {
               {beer.tagline}
             </p>
           </div>
+
           <ul className="nav nav-fill nav-tabs" id="myTab">
             <li className="nav-item">
               <a

@@ -26,7 +26,6 @@ class Beer extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({
-          isLoaded: true,
           data: response
         });
       })
@@ -37,6 +36,9 @@ class Beer extends Component {
         );
         // console.log(parseInt(numPages));
         this.setState({ numPages: numPages });
+      })
+      .then(res => {
+        this.setState({ isLoaded: true });
       });
   }
   render() {
@@ -68,6 +70,7 @@ class Beer extends Component {
         </p>
         <p>{this.state.data.length}</p> */}
         {/* <p>Num pages: {this.state.numPages}</p> */}
+        {console.log(this.state.numPages)}
         {/* <p>{JSON.stringify(this.props)}</p> */}
         {/* <p>Location: {JSON.stringify(this.props.location)}</p> */}
         <h3 className="m-2">Delicious Beer!</h3>
