@@ -7,6 +7,8 @@ import Projects from "../pages/projects/Projects";
 import Demo from "../pages/demo/Demo";
 import Parallax from "../pages/parallax/Parallax";
 
+import Beer from "../pages/beer/Beer";
+
 import NotFound from "../pages/status-codes/404";
 
 class Routes extends Component {
@@ -20,6 +22,7 @@ class Routes extends Component {
         <Route path="/demo" component={Demo} />
         <Route path="/projects" component={Projects} />
         <Route path="/parallax" component={Parallax} />
+        <Route path="/beer" component={Beer} />
 
         <Route component={NotFound} />
       </Switch>

@@ -4,6 +4,14 @@ This project is made with react and bootstrap so far. Just getting my bearings w
 
 ## Site contents
 
+### Technologies:
+
+- React
+- Bootstrap
+- ~~Ajax~~
+- .fetch API
+- RESTful API
+
 At the moment it has some basic HTML, CSS, bootstrap, and react features. Some day it may be the beginnings of a project or portfolio type page.
 
 ## Git lifecycle
