@@ -54,8 +54,9 @@ class Pagination extends Component {
 }
 
 const PageItem = props => {
+  const activePage = props.pageNum + 1 == props.currPage ? " active" : null;
   return (
-    <li className="page-item">
+    <li className={`page-item${activePage}`}>
       <Link
         className="page-link"
         // to="#"

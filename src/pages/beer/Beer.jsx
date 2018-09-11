@@ -70,16 +70,16 @@ class Beer extends Component {
         {/* <p>Num pages: {this.state.numPages}</p> */}
         {/* <p>{JSON.stringify(this.props)}</p> */}
         {/* <p>Location: {JSON.stringify(this.props.location)}</p> */}
+        <h3 className="m-2">Delicious Beer!</h3>
         <Pagination
           numItems={this.state.data.length}
           // currentPage={this.props.match.params.beerPageId}
-          // currPage={this.state.currPage}
+          currPage={this.props.match.params.beerPageId}
           itemsPerPage={this.state.itemsPerPage}
           // url={this.props.match.url}
           url="/beer"
         />
 
-        <h3 className="m-2">Delicious Beer!</h3>
         <div className="row">
           {data
             .filter(beer => beer.id >= itemRangeMin && beer.id <= itemRangeMax)
