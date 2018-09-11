@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import BeerCard from "./BeerCard";
 import Pagination from "../../components/Pagination";
-import { Route } from "react-router-dom";
 
 class Beer extends Component {
   constructor(props) {
@@ -11,9 +10,8 @@ class Beer extends Component {
     data: {},
     isLoaded: false,
     currPage: 1,
-    itemsPerPage: 9,
+    itemsPerPage: 10, // This variable may be set to user input in the future.
     numPages: 1
-    // itemsPerPage: 9
   };
   componentDidMount() {
     const url = "https://api.myjson.com/bins/powmo";
@@ -34,7 +32,6 @@ class Beer extends Component {
         const numPages = Math.ceil(
           parseInt(this.state.data.length) / parseInt(this.state.itemsPerPage)
         );
-        // console.log(parseInt(numPages));
         this.setState({ numPages: numPages });
       })
       .then(res => {
@@ -53,7 +50,6 @@ class Beer extends Component {
       );
     }
 
-    // const itemRangeMax = this.state.itemsPerPage * this.props.match.params.beerPageId;
     const itemRangeMax =
       this.state.itemsPerPage * this.props.match.params.beerPageId >=
       this.state.data.length
@@ -63,23 +59,12 @@ class Beer extends Component {
 
     return (
       <div className="container">
-        {/* <p>Item range: {itemRangeMin + " - " + itemRangeMax}</p>
-        <p>
-          asdfasdfssdf
-          {this.props.match.params.beerPageId}
-        </p>
-        <p>{this.state.data.length}</p> */}
-        {/* <p>Num pages: {this.state.numPages}</p> */}
-        {console.log(this.state.numPages)}
-        {/* <p>{JSON.stringify(this.props)}</p> */}
-        {/* <p>Location: {JSON.stringify(this.props.location)}</p> */}
         <h3 className="m-2">Delicious Beer!</h3>
         <Pagination
           numItems={this.state.data.length}
-          // currentPage={this.props.match.params.beerPageId}
           currPage={this.props.match.params.beerPageId}
           itemsPerPage={this.state.itemsPerPage}
-          // url={this.props.match.url}
+          numPages={this.state.numPages}
           url="/beer"
         />
 

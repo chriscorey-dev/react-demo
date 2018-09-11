@@ -8,12 +8,12 @@ class BeerCard extends Component {
         <div className="card">
           <div className="card-header">
             <img
-              className="mr-3 float-left img-fluid"
+              className="mr-3 float-left"
               src={beer.image_url}
               style={{
                 height: "100px"
               }}
-              alt="Card image cap"
+              alt={`Image of ${beer.name}`}
             />
             <h4 className="mb-0">{beer.name}</h4>
             <p

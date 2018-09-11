@@ -34,7 +34,7 @@ class NavBar extends Component {
             </NavLink>
 
             <NavLink className="nav-item nav-link" to="/beer">
-              Beer!
+              Beer List
             </NavLink>
 
             <NavLink className="nav-item nav-link" to="/projects">

@@ -11,7 +11,8 @@ class Footer extends Component {
               <div className="row">
                 <div className="col">
                   <a
-                    href="#"
+                    href="https://twitter.com/chriscorey_dev"
+                    target="_blank"
                     className="col"
                     style={{ top: "20%" }}
                     id="twit-link"
@@ -20,6 +21,7 @@ class Footer extends Component {
                 <div className="col">
                   <a
                     href="#"
+                    // target="_blank"
                     className="col"
                     style={{ top: "20%" }}
                     id="face-link"
@@ -27,7 +29,8 @@ class Footer extends Component {
                 </div>
                 <div className="col">
                   <a
-                    href="#"
+                    href="https://medium.com/@chriscorey_dev"
+                    target="_blank"
                     className="col"
                     style={{ top: "20%" }}
                     id="medium-link"
