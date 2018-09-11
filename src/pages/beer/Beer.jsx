@@ -44,7 +44,11 @@ class Beer extends Component {
 
     // This line is so important!! It doesn't try to load ajax until it's ready.
     if (!isLoaded) {
-      return <p>Loading Delicious...</p>;
+      return (
+        <div className="container">
+          <p>Loading Delicious...</p>
+        </div>
+      );
     }
 
     // const itemRangeMax = this.state.itemsPerPage * this.props.match.params.beerPageId;
