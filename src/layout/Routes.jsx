@@ -22,12 +22,22 @@ class Routes extends Component {
         <Route path="/demo" component={Demo} />
         <Route path="/projects" component={Projects} />
         <Route path="/parallax" component={Parallax} />
-        <Route path="/beer" component={Beer} />
+
+        <Redirect exact path="/beer" to="/beer/1" />
+        <Route path="/beer/:beerPageId" component={Beer} />
+        <div />
 
         <Route component={NotFound} />
       </Switch>
     );
   }
 }
+
+const Topic = ({ match }) => (
+  <div>
+    <h3>{match.params.beerPageId}</h3>
+    <p>asdf</p>
+  </div>
+);
 
 export default Routes;
