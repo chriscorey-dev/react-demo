@@ -7,6 +7,7 @@ import Carousel from "../pages/carousel/Carousel";
 import Projects from "../pages/projects/Projects";
 import Demo from "../pages/demo/Demo";
 import Parallax from "../pages/parallax/Parallax";
+import Test from "../pages/test/Test";
 
 import NotFound from "../pages/status-codes/404";
 
@@ -24,6 +25,7 @@ class Routes extends Component {
         <Route exact path="/demo" component={Demo} />
         <Route exact path="/projects" component={Projects} />
         <Route exact path="/parallax" component={Parallax} />
+        <Route exact path="/test" component={Test} />
 
         <Route component={NotFound} />
       </Switch>

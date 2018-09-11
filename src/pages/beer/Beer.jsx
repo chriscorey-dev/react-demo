@@ -69,6 +69,8 @@ class Beer extends Component {
         />
 
         <div className="row">
+          {/* //TODO: Pagination on last page includes items from previous page */}
+          {/* //TODO: 404 error when url is pasted. */}
           {data
             .filter(beer => beer.id >= itemRangeMin && beer.id <= itemRangeMax)
             .map(beer => (
