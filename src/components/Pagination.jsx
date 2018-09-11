@@ -24,11 +24,18 @@ class Pagination extends Component {
         {/* <p>{this.props.match.params.beerPageId}</p> */}
         {/* <p>{this.props.url}</p> */}
         <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link" href="#">
+          <li
+            className={`page-item${
+              parseInt(this.props.currPage) <= 1 ? " disabled" : ""
+            }`}
+          >
+            <Link
+              className="page-link"
+              to={`${this.props.url}/${parseInt(this.props.currPage) - 1}`}
+            >
               <span>&laquo;</span>
               <span className="sr-only">Previous</span>
-            </a>
+            </Link>
           </li>
 
           {[...Array(this.state.numPages).keys()].map(num => (
@@ -41,11 +48,20 @@ class Pagination extends Component {
             />
           ))}
 
-          <li className="page-item">
-            <a className="page-link" href="#">
+          <li
+            className={`page-item${
+              parseInt(this.props.currPage) >= this.state.numPages
+                ? " disabled"
+                : ""
+            }`}
+          >
+            <Link
+              className="page-link"
+              to={`${this.props.url}/${parseInt(this.props.currPage) + 1}`}
+            >
               <span>&raquo;</span>
               <span className="sr-only">Next</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
