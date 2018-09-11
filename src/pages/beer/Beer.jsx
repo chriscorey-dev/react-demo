@@ -10,7 +10,7 @@ class Beer extends Component {
     data: {},
     isLoaded: false,
     currPage: 1,
-    itemsPerPage: 10, // This variable may be set to user input in the future.
+    itemsPerPage: 12, // This variable may be set to user input in the future.
     numPages: 1
   };
   componentDidMount() {
