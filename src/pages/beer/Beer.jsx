@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import BeerCard from "./BeerCard";
 import Pagination from "../../components/Pagination";
 
+//TODO: Pagination on last page includes items from previous page
+//TODO: 404 error when url is pasted.
+//TODO: Show 404 with invalid url number
+//TODO: Pagination truncation
+//TODO: Check state, make sure everything is concise and necessary
+
 class Beer extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +36,7 @@ class Beer extends Component {
       .then(res => {
         // Calculating number of pages
         const numPages = Math.ceil(
-          parseInt(this.state.data.length) / parseInt(this.state.itemsPerPage)
+          this.state.data.length / this.state.itemsPerPage
         );
         this.setState({ numPages: numPages });
       })
@@ -69,8 +75,6 @@ class Beer extends Component {
         />
 
         <div className="row">
-          {/* //TODO: Pagination on last page includes items from previous page */}
-          {/* //TODO: 404 error when url is pasted. */}
           {data
             .filter(beer => beer.id >= itemRangeMin && beer.id <= itemRangeMax)
             .map(beer => (

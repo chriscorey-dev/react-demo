@@ -15,7 +15,7 @@ class BeerCard extends Component {
               }}
               alt={`Image of ${beer.name}`}
             />
-            <h4 className="mb-0">{beer.name}</h4>
+            <h4 className="mb-0 font-weight-normal">{beer.name}</h4>
             <p
               className="card-text mt-0 font-italic"
               style={{ fontSize: ".85em" }}
@@ -52,39 +52,40 @@ class BeerCard extends Component {
                 id="contact2-tab"
                 data-toggle="tab"
               >
-                Recipe
+                Food
               </a>
             </li>
           </ul>
-          {/* </div> */}
           <div className="tab-content" id="myTabContent">
             <div
               className="card-body tab-pane fade show active pb-3 pt-2"
               id={`link-1-${beer.id}`}
             >
-              <h5>Beer Info:</h5>
+              <h5 class="font-weight-normal">Beer Info:</h5>
               <hr className="mt-0 mb-2" />
               <p className="mb-0">First Brewed: {`${beer.first_brewed}`}</p>
               <p className="">ABV: {`${beer.abv}%`}</p>
               <button className="btn btn-primary">Buy Beer!</button>
-              {/* <p className="m-0">hello world</p>
-              <p className="m-0">hello world</p>
-              <p className="m-0">hello world</p>
-              <p className="m-0">hello world</p> */}
             </div>
-            <div className="card-body tab-pane fade" id={`link-2-${beer.id}`}>
-              <h5>Description:</h5>
+            <div
+              className="card-body tab-pane fade pb-3 pt-2"
+              id={`link-2-${beer.id}`}
+            >
+              <h5 class="font-weight-normal">Description:</h5>
               <hr className="mt-0 mb-2" />
               <p>{beer.description}</p>
             </div>
-            <div className="card-body tab-pane fade" id={`link-3-${beer.id}`}>
-              <h5>How to make</h5>
-              <p>
-                3. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
+            <div
+              className="card-body tab-pane fade pb-3 pt-2"
+              id={`link-3-${beer.id}`}
+            >
+              <h5 class="font-weight-normal">Food pairings:</h5>
+              <hr className="mt-0 mb-2" />
+              <ul>
+                {beer.food_pairing.map(key => (
+                  <li>{key}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
