@@ -61,7 +61,7 @@ class BeerCard extends Component {
               className="card-body tab-pane fade show active pb-3 pt-2"
               id={`link-1-${beer.id}`}
             >
-              <h5 class="font-weight-normal">Beer Info:</h5>
+              <h5 className="font-weight-normal">Beer Info:</h5>
               <hr className="mt-0 mb-2" />
               <p className="mb-0">First Brewed: {`${beer.first_brewed}`}</p>
               <p className="">ABV: {`${beer.abv}%`}</p>
@@ -71,7 +71,7 @@ class BeerCard extends Component {
               className="card-body tab-pane fade pb-3 pt-2"
               id={`link-2-${beer.id}`}
             >
-              <h5 class="font-weight-normal">Description:</h5>
+              <h5 className="font-weight-normal">Description:</h5>
               <hr className="mt-0 mb-2" />
               <p>{beer.description}</p>
             </div>
@@ -79,11 +79,11 @@ class BeerCard extends Component {
               className="card-body tab-pane fade pb-3 pt-2"
               id={`link-3-${beer.id}`}
             >
-              <h5 class="font-weight-normal">Food pairings:</h5>
+              <h5 className="font-weight-normal">Food pairings:</h5>
               <hr className="mt-0 mb-2" />
               <ul>
-                {beer.food_pairing.map(key => (
-                  <li>{key}</li>
+                {beer.food_pairing.map((food, index) => (
+                  <li key={index}>{food}</li>
                 ))}
               </ul>
             </div>

@@ -47,14 +47,6 @@ class Home extends Component {
           <li>
             <div>Cliche "designer" site</div>
           </li>
-
-          <li>
-            <div>
-              <a href="https://chris-corey.com" target="_blank">
-                Revamp portfolio page
-              </a>
-            </div>
-          </li>
         </ul>
 
         <h5 className="font-weight-normal">Previous Projects:</h5>

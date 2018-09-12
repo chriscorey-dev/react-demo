@@ -8,6 +8,7 @@ import Projects from "../pages/projects/Projects";
 import Demo from "../pages/demo/Demo";
 import Parallax from "../pages/parallax/Parallax";
 import Test from "../pages/test/Test";
+import ProtectedPage from "../pages/test/ProtectedPage";
 
 import NotFound from "../pages/status-codes/404";
 
@@ -26,6 +27,7 @@ class Routes extends Component {
         <Route exact path="/projects" component={Projects} />
         <Route exact path="/parallax" component={Parallax} />
         <Route exact path="/test" component={Test} />
+        <Route exact path="/protected-page" component={ProtectedPage} />
 
         <Route component={NotFound} />
       </Switch>
