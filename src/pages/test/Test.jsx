@@ -12,7 +12,8 @@ class Test extends Component {
 
   componentDidMount() {
     // const url = "https://api.myjson.com/bins/powmo";
-    const url = "https://jsonplaceholder.typicode.com/users";
+    // const url = "https://jsonplaceholder.typicode.com/users";
+    const url = "https://chris-corey.com/json/users.json";
 
     fetch(url)
       .then(response => response.json())
