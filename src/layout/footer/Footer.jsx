@@ -7,7 +7,7 @@ class Footer extends Component {
       <footer className="footer text-center text-light bg-dark">
         <div className="container">
           <div className="row">
-            <div className="col-7 col-sm-6 col-md">
+            <div className="col-6 col-md">
               <div className="row">
                 <div className="col">
                   <a
@@ -18,7 +18,7 @@ class Footer extends Component {
                     id="twit-link"
                   />
                 </div>
-                <div className="col">
+                {/* <div className="col">
                   <a
                     href="#"
                     // target="_blank"
@@ -26,7 +26,7 @@ class Footer extends Component {
                     style={{ top: "20%" }}
                     id="face-link"
                   />
-                </div>
+                </div> */}
                 <div className="col">
                   <a
                     href="https://medium.com/@chriscorey_dev"
@@ -59,10 +59,13 @@ class Footer extends Component {
                 </button>
 
                 <div className="dropdown-menu">
-                  <a className="dropdown-item" href="#">
+                  <a
+                    className="dropdown-item"
+                    href="mailto:chris.corey95@gmail.com"
+                  >
                     Email
                   </a>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="tel:5124975480">
                     Phone
                   </a>
                   <a className="dropdown-item" href="#">

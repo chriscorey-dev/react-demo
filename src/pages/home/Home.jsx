@@ -7,15 +7,40 @@ class Home extends Component {
       <div className="container">
         <div className="card mb-2">
           <div className="card-header">
-            <h2 class="mb-0 font-weight-normal">Chris Corey</h2>
+            <h2 className="mb-0 font-weight-normal">Chris Corey</h2>
             <p className="mt-0 font-italic font-weight-light">
-              Programmer, musician, etc.
+              Programmer, musician, devilishly handsome.
             </p>
           </div>
           <div className="card-body">
-            <h3 className="font-weight-normal">Bio</h3>
             <p>Seattle born, Denver grown.</p>
-            <p>Code, guitar, explore.</p>
+            <p>
+              I write code. I play guitar. I go on adventures. I like meeting
+              people. I feel like this would look better as a bulleted list...
+            </p>
+            <ul>
+              <li>
+                <small>That's better</small>
+              </li>
+              <li>
+                <small>I discover new places around Denver.</small>
+              </li>
+              <li>
+                <small>
+                  I love learning. If learning was a hobby I'd go to meetups.
+                </small>
+              </li>
+              <li>
+                <small>I eat sushi.</small>
+              </li>
+              <li>
+                <small>You get the idea.</small>
+              </li>
+            </ul>
+            <small>
+              What's this site? Projects. Ideas. Broken code. Good code. Have a
+              look around, maybe you'll find something you like.
+            </small>
           </div>
         </div>
 
@@ -41,7 +66,7 @@ class Home extends Component {
                 href="https://api.chris-corey.com/api/sakila/film"
                 target="_blank"
               >
-                Example Site
+                Example Site (Beware of Chrome caching!)
               </a>
             </div>
           </li>
@@ -62,7 +87,11 @@ class Home extends Component {
           </li>
 
           <li>
-            <div>Cliche "designer" site</div>
+            <div>Fancy "designer" site</div>
+          </li>
+
+          <li>
+            <div>Mo React!</div>
           </li>
         </ul>
 
