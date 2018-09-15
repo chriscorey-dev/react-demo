@@ -28,6 +28,23 @@ class Home extends Component {
               </a>
             </div>
           </li>
+          <li>
+            <div>
+              <a
+                href="https://github.com/chriscorey-dev/node-express-react-api"
+                target="_blank"
+              >
+                RESTful API Template build on top of react.
+              </a>
+              <br />
+              <a
+                href="https://api.chris-corey.com/api/sakila/film"
+                target="_blank"
+              >
+                Example Site
+              </a>
+            </div>
+          </li>
 
           <li>
             <div>
