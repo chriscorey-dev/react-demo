@@ -3,13 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import NotFound from "../pages/status-codes/404";
 
 class Pagination extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    // numPages: 0
-  };
-
   componentDidMount() {
     // const numPages = Math.ceil(this.props.numItems / this.props.itemsPerPage);
     // this.setState({ numPages: numPages });
@@ -23,9 +16,7 @@ class Pagination extends Component {
     if (this.props.badPage)
       return (
         <React.Fragment>
-          <NotFound
-            message={`Beer page #${this.props.currPage} does not exist.`}
-          />
+          <NotFound message={`The page '${this.props.url}' does not exist.`} />
         </React.Fragment>
       );
 
@@ -88,7 +79,7 @@ const PageItem = props => {
   return (
     <li
       className={`page-item${
-        props.pageNum + 1 == props.currPage ? " active" : ""
+        props.pageNum + 1 === parseInt(props.currPage) ? " active" : ""
       }`}
     >
       {/* <li className="page-item"> */}

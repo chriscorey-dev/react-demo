@@ -2,19 +2,18 @@ import React, { Component } from "react";
 import BeerCard from "./BeerCard";
 import Pagination from "../../components/Pagination";
 
-//TODO: Pagination on last page includes items from previous page
-//TODO: Pagination truncation
-//TODO: Check state, make sure everything is concise and necessary
+// TODO: Pagination on last page includes items from previous page
+// TODO: Pagination truncation
+// TODO: Check state, make sure everything is concise and necessary
+// TODO: Debating how much work each module (beer & pagination) will do for pagination and page number handling.
+//       And debating if an entire new module is necessary for page number handling
 
 class Beer extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
   state = {
-    data: {},
+    data: null,
     isLoaded: false,
     itemsPerPage: 12, // This variable may be set to user input in the future.
-    numPages: 1
+    numPages: null
   };
   componentDidMount() {
     // const url = "https://api.myjson.com/bins/powmo";
@@ -61,17 +60,16 @@ class Beer extends Component {
         : this.state.itemsPerPage * this.props.match.params.beerPageId;
     const itemRangeMin = itemRangeMax - this.state.itemsPerPage + 1;
 
+    // Checks if url is bad
     if (
       this.props.match.params.beerPageId < 1 ||
-      this.props.match.params.beerPageId > this.state.numPages
+      this.props.match.params.beerPageId > this.state.numPages ||
+      isNaN(this.props.match.params.beerPageId)
     ) {
-      // return <div className="container">bad</div>;
+      console.log(this.props);
       return (
         <div className="container">
-          <Pagination
-            currPage={this.props.match.params.beerPageId}
-            badPage={true}
-          />
+          <Pagination badPage={true} url={this.props.match.url} />
         </div>
       );
     }
