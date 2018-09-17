@@ -9,7 +9,7 @@ class Home extends Component {
           <div className="card-header">
             <h2 className="mb-0 font-weight-normal">Chris Corey</h2>
             <p className="mt-0 font-italic font-weight-light">
-              Programmer, musician, devilishly handsome.
+              Programmer, musician, explorer.
             </p>
           </div>
           <div className="card-body">
@@ -48,34 +48,27 @@ class Home extends Component {
         <ul>
           <li>
             <div>
-              <a href="https://react.chris-corey.com" target="_blank">
-                You're looking at it
-              </a>
+              <a href="https://react.chris-corey.com">You're looking at it</a>
             </div>
           </li>
           <li>
             <div>
-              <a
-                href="https://github.com/chriscorey-dev/node-express-react-api"
-                target="_blank"
-              >
-                RESTful API Template build on top of react.
+              <a href="https://github.com/chriscorey-dev/node-express-react-api">
+                Automatic Public REST API Template
               </a>
               <br />
               <a
-                href="https://api.chris-corey.com/api/sakila/film"
+                href="https://api.chris-corey.com/api/sakila/film/1"
                 target="_blank"
               >
-                Example Site (Beware of Chrome caching!)
+                API Endpoint Example
               </a>
             </div>
           </li>
 
           <li>
             <div>
-              <a href="https://chris-corey.com" target="_blank">
-                Revamp portfolio page
-              </a>
+              <a href="https://chris-corey.com">Revamp portfolio page</a>
             </div>
           </li>
         </ul>
@@ -99,10 +92,7 @@ class Home extends Component {
         <ul>
           <li>
             <div>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.upperhouse.MontessoriSchoolOfDenver"
-                target="_blank"
-              >
+              <a href="https://play.google.com/store/apps/details?id=com.upperhouse.MontessoriSchoolOfDenver">
                 Montessori School of Denver android app
               </a>
             </div>
@@ -110,15 +100,13 @@ class Home extends Component {
 
           <li>
             <div>
-              <a href="https://notes.mybrokencode.com" target="_blank">
-                Note Taking site
-              </a>
+              <a href="https://notes.mybrokencode.com">Note Taking site</a>
             </div>
           </li>
 
           <li>
             <div>
-              <a href="http://banana.chris-corey.com:3309" target="_blank">
+              <a href="http://banana.chris-corey.com:3309">
                 Dedicated Home Server
               </a>
             </div>
@@ -126,44 +114,26 @@ class Home extends Component {
 
           <li>
             <div>
-              <a href="https://github.com/chriscorey-dev" target="_blank">
-                More on GitHub
-              </a>
+              <a href="https://github.com/chriscorey-dev">More on GitHub</a>
             </div>
           </li>
         </ul>
 
         <div>
           <p>Connect with me</p>
-          <a
-            href="https://github.com/chriscorey-dev"
-            target="_blank"
-            className="m-1"
-          >
+          <a href="https://github.com/chriscorey-dev" className="m-1">
             GitHub
           </a>
           |
-          <a
-            href="https://codepen.io/chriscorey_dev"
-            target="_blank"
-            className="m-1"
-          >
+          <a href="https://codepen.io/chriscorey_dev" className="m-1">
             Codepen.io
           </a>
           |
-          <a
-            href="https://twitter.com/chriscorey_dev"
-            target="_blank"
-            className="m-1"
-          >
+          <a href="https://twitter.com/chriscorey_dev" className="m-1">
             Twitter
           </a>
           |
-          <a
-            href="https://medium.com/@chriscorey_dev"
-            target="_blank"
-            className="m-1"
-          >
+          <a href="https://medium.com/@chriscorey_dev" className="m-1">
             Medium
           </a>
         </div>

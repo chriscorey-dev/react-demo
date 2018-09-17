@@ -9,9 +9,9 @@ import Pagination from "../../components/Pagination";
 //TODO: Check state, make sure everything is concise and necessary
 
 class Beer extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   state = {
     data: {},
     isLoaded: false,
@@ -20,8 +20,9 @@ class Beer extends Component {
     numPages: 1
   };
   componentDidMount() {
-    const url = "https://api.myjson.com/bins/powmo";
-    // const url = "https://api.punkapi.com/v2/beers/?page=1&per_page=80";
+    // const url = "https://api.myjson.com/bins/powmo";
+    const url = "https://api.punkapi.com/v2/beers/?page=1&per_page=80";
+
     // const url = "https://api.punkapi.com/v2/beers/?page=1";
     // const url = "https://api.github.com/users/chriscorey-dev";
     // const url = "https://jsonplaceholder.typicode.com/users";

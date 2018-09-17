@@ -13,7 +13,7 @@ class BeerCard extends Component {
               style={{
                 height: "100px"
               }}
-              alt={`Image of ${beer.name}`}
+              alt={beer.name}
             />
             <h4 className="mb-0 font-weight-normal">{beer.name}</h4>
             <p
@@ -65,7 +65,12 @@ class BeerCard extends Component {
               <hr className="mt-0 mb-2" />
               <p className="mb-0">First Brewed: {`${beer.first_brewed}`}</p>
               <p className="">ABV: {`${beer.abv}%`}</p>
-              <button className="btn btn-primary">Buy Beer!</button>
+              <a
+                className="btn btn-primary"
+                href={`https://api.punkapi.com/v2/beers/${beer.id}`}
+              >
+                Buy Beer!
+              </a>
             </div>
             <div
               className="card-body tab-pane fade pb-3 pt-2"
