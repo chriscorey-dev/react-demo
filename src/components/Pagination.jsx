@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
+import NotFound from "../pages/status-codes/404";
 
 class Pagination extends Component {
   constructor(props) {
@@ -17,6 +18,17 @@ class Pagination extends Component {
   render() {
     // Gets number of pages before rendering
     // if (!this.props.numPages) return null;
+
+    // Checks for bad page number
+    if (this.props.badPage)
+      return (
+        <React.Fragment>
+          <NotFound
+            message={`Beer page #${this.props.currPage} does not exist.`}
+          />
+        </React.Fragment>
+      );
+
     return (
       <nav>
         <ul className="pagination">

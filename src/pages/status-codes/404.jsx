@@ -7,6 +7,7 @@ class NotFound extends Component {
     return (
       <div className="container">
         <h3>404 Not Found</h3>
+        <div>{this.props.message}</div>
         <Link to="/">Return to homepage</Link>
       </div>
     );

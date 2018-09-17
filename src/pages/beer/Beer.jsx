@@ -3,8 +3,6 @@ import BeerCard from "./BeerCard";
 import Pagination from "../../components/Pagination";
 
 //TODO: Pagination on last page includes items from previous page
-//TODO: 404 error when url is pasted.
-//TODO: Show 404 with invalid url number
 //TODO: Pagination truncation
 //TODO: Check state, make sure everything is concise and necessary
 
@@ -15,7 +13,6 @@ class Beer extends Component {
   state = {
     data: {},
     isLoaded: false,
-    currPage: 1,
     itemsPerPage: 12, // This variable may be set to user input in the future.
     numPages: 1
   };
@@ -63,6 +60,21 @@ class Beer extends Component {
         ? this.state.data.length
         : this.state.itemsPerPage * this.props.match.params.beerPageId;
     const itemRangeMin = itemRangeMax - this.state.itemsPerPage + 1;
+
+    if (
+      this.props.match.params.beerPageId < 1 ||
+      this.props.match.params.beerPageId > this.state.numPages
+    ) {
+      // return <div className="container">bad</div>;
+      return (
+        <div className="container">
+          <Pagination
+            currPage={this.props.match.params.beerPageId}
+            badPage={true}
+          />
+        </div>
+      );
+    }
 
     return (
       <div className="container">
