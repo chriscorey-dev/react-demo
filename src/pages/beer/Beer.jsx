@@ -82,6 +82,14 @@ class Beer extends Component {
               <BeerCard key={beer.id} beer={beer} />
             ))}
         </div>
+
+        <Pagination
+          numItems={this.state.data.length}
+          currPage={this.props.match.params.beerPageId}
+          itemsPerPage={this.state.itemsPerPage}
+          numPages={this.state.numPages}
+          url="/beer"
+        />
       </div>
     );
   }

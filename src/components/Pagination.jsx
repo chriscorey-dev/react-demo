@@ -51,8 +51,12 @@ class Pagination extends Component {
             }`}
           >
             <Link
-              className="page-link"
-              to={`${this.props.url}/${parseInt(this.props.currPage) + 1}`}
+              className="page-link disabled"
+              to={
+                parseInt(this.props.currPage) >= this.props.numPages
+                  ? `#`
+                  : `${this.props.url}/${parseInt(this.props.currPage) + 1}`
+              }
             >
               <span>&raquo;</span>
               <span className="sr-only">Next</span>
