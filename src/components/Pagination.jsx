@@ -41,14 +41,46 @@ class Pagination extends Component {
             </Link>
           </li>
 
-          {[...Array(this.props.numPages).keys()].map(num => (
-            <PageItem
-              key={num}
-              pageNum={num}
-              url={this.props.url}
-              currPage={this.props.currPage}
-            />
-          ))}
+          {[...Array(this.props.numPages).keys()].reduce((allItems, num) => {
+            console.log(this.props.numPages);
+
+            const pageItem = (
+              <PageItem
+                key={num}
+                pageNum={num}
+                url={this.props.url}
+                currPage={this.props.currPage}
+              />
+            );
+            const truncatedItem = <TruncatedItem />;
+
+            if (this.props.numPages <= 7) {
+              allItems.push(pageItem);
+            } else {
+              // Always show the first and last page
+              if (num + 1 === 1 || num + 1 === this.props.numPages) {
+                allItems.push(pageItem);
+
+                // Page is ±1 from current page
+              } else if (
+                num + 1 >= this.props.currPage - 1 &&
+                num <= this.props.currPage
+              ) {
+                allItems.push(pageItem);
+
+                // Handle Truncated item. Currently, offset = 5
+              } else if (
+                (this.props.currPage < 5 && num + 1 <= 5) ||
+                (this.props.currPage > this.props.numPages - 4 &&
+                  num + 1 > this.props.numPages - 5)
+              ) {
+                allItems.push(pageItem);
+              } else if (num + 1 === 2 || num + 1 === this.props.numPages - 1) {
+                allItems.push(truncatedItem);
+              }
+            }
+            return allItems;
+          }, [])}
 
           <li
             className={`page-item${
@@ -58,7 +90,7 @@ class Pagination extends Component {
             }`}
           >
             <Link
-              className="page-link disabled"
+              className="page-link"
               to={
                 parseInt(this.props.currPage) >= this.props.numPages
                   ? `#`
@@ -82,10 +114,18 @@ const PageItem = props => {
         props.pageNum + 1 === parseInt(props.currPage) ? " active" : ""
       }`}
     >
-      {/* <li className="page-item"> */}
-      {/* {console.log(`${props.url}/${props.pageNum + 1}`)} */}
       <Link className="page-link" to={`${props.url}/${props.pageNum + 1}`}>
         {props.pageNum + 1}
+      </Link>
+    </li>
+  );
+};
+
+const TruncatedItem = () => {
+  return (
+    <li className={`page-item disabled`}>
+      <Link to="#" className="page-link disabled">
+        ...
       </Link>
     </li>
   );
