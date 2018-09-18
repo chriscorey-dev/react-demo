@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import BeerCard from "./BeerCard";
 import Pagination from "../../components/Pagination";
 
-// TODO: Pagination on last page includes items from previous page
 // TODO: Pagination truncation
 // TODO: Check state, make sure everything is concise and necessary
 // TODO: Debating how much work each module (beer & pagination) will do for pagination and page number handling.
@@ -43,6 +42,7 @@ class Beer extends Component {
   }
   render() {
     const { isLoaded, data } = this.state;
+    const { beerPageId } = this.props.match.params;
 
     // This line is so important!! It doesn't try to load ajax until it's ready.
     if (!isLoaded) {
@@ -53,20 +53,15 @@ class Beer extends Component {
       );
     }
 
-    const itemRangeMax =
-      this.state.itemsPerPage * this.props.match.params.beerPageId >=
-      this.state.data.length
-        ? this.state.data.length
-        : this.state.itemsPerPage * this.props.match.params.beerPageId;
-    const itemRangeMin = itemRangeMax - this.state.itemsPerPage + 1;
+    const itemRangeMin = this.state.itemsPerPage * (beerPageId - 1) + 1;
+    const itemRangeMax = itemRangeMin + this.state.itemsPerPage - 1;
 
-    // Checks if url is bad
+    // Checks for bad url
     if (
-      this.props.match.params.beerPageId < 1 ||
-      this.props.match.params.beerPageId > this.state.numPages ||
-      isNaN(this.props.match.params.beerPageId)
+      beerPageId < 1 ||
+      beerPageId > this.state.numPages ||
+      isNaN(beerPageId)
     ) {
-      console.log(this.props);
       return (
         <div className="container">
           <Pagination badPage={true} url={this.props.match.url} />
@@ -78,8 +73,8 @@ class Beer extends Component {
       <div className="container">
         <h3 className="m-2">Delicious Beer!</h3>
         <Pagination
-          numItems={this.state.data.length}
-          currPage={this.props.match.params.beerPageId}
+          numItems={data.length}
+          currPage={beerPageId}
           itemsPerPage={this.state.itemsPerPage}
           numPages={this.state.numPages}
           url="/beer"
@@ -94,8 +89,8 @@ class Beer extends Component {
         </div>
 
         <Pagination
-          numItems={this.state.data.length}
-          currPage={this.props.match.params.beerPageId}
+          numItems={data.length}
+          currPage={beerPageId}
           itemsPerPage={this.state.itemsPerPage}
           numPages={this.state.numPages}
           url="/beer"
