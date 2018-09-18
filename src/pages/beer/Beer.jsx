@@ -43,7 +43,7 @@ class Beer extends Component {
       });
   }
   render() {
-    const { isLoaded, data } = this.state;
+    const { isLoaded, data, itemsPerPage } = this.state;
     const { beerPageId } = this.props.match.params;
 
     // This line is so important!! It doesn't try to load ajax until it's ready.
@@ -55,8 +55,8 @@ class Beer extends Component {
       );
     }
 
-    const itemRangeMin = this.state.itemsPerPage * (beerPageId - 1) + 1;
-    const itemRangeMax = itemRangeMin + this.state.itemsPerPage - 1;
+    const itemRangeMin = itemsPerPage * (beerPageId - 1) + 1;
+    const itemRangeMax = itemRangeMin + itemsPerPage - 1;
 
     // Checks for bad url
     if (
@@ -77,13 +77,13 @@ class Beer extends Component {
         <Pagination
           numItems={data.length}
           currPage={beerPageId}
-          itemsPerPage={this.state.itemsPerPage}
+          itemsPerPage={itemsPerPage}
           numPages={this.state.numPages}
           url="/beer"
         />
 
         <div className="row">
-          {data.slice(itemRangeMin, itemRangeMax + 1).map(beer => (
+          {data.slice(itemRangeMin - 1, itemRangeMax).map(beer => (
             <BeerCard key={beer.id} beer={beer} />
           ))}
         </div>
@@ -91,7 +91,7 @@ class Beer extends Component {
         <Pagination
           numItems={data.length}
           currPage={beerPageId}
-          itemsPerPage={this.state.itemsPerPage}
+          itemsPerPage={itemsPerPage}
           numPages={this.state.numPages}
           url="/beer"
         />
