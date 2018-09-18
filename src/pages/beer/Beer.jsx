@@ -16,7 +16,9 @@ class Beer extends Component {
   };
   componentDidMount() {
     // const url = "https://api.myjson.com/bins/powmo";
-    const url = "https://api.punkapi.com/v2/beers/?page=1&per_page=80";
+    // const url = "https://api.punkapi.com/v2/beers/?page=1&per_page=80";
+    const url = "https://api.punkapi.com/v2/beers/?page=2&per_page=80";
+    // const url = "https://api.punkapi.com/v2/beers/?page=3&per_page=80";
 
     // const url = "https://api.punkapi.com/v2/beers/?page=1";
     // const url = "https://api.github.com/users/chriscorey-dev";
@@ -81,11 +83,9 @@ class Beer extends Component {
         />
 
         <div className="row">
-          {data
-            .filter(beer => beer.id >= itemRangeMin && beer.id <= itemRangeMax)
-            .map(beer => (
-              <BeerCard key={beer.id} beer={beer} />
-            ))}
+          {data.slice(itemRangeMin, itemRangeMax + 1).map(beer => (
+            <BeerCard key={beer.id} beer={beer} />
+          ))}
         </div>
 
         <Pagination
