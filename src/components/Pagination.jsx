@@ -42,8 +42,6 @@ class Pagination extends Component {
           </li>
 
           {[...Array(this.props.numPages).keys()].reduce((allItems, num) => {
-            console.log(this.props.numPages);
-
             const pageItem = (
               <PageItem
                 key={num}
@@ -52,7 +50,7 @@ class Pagination extends Component {
                 currPage={this.props.currPage}
               />
             );
-            const truncatedItem = <TruncatedItem />;
+            const truncatedItem = <TruncatedItem key={num} />;
 
             if (this.props.numPages <= 7) {
               allItems.push(pageItem);
