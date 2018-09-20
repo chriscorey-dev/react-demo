@@ -9,7 +9,7 @@ class NavBar extends Component {
     closeSlider();
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+      <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-2">
         <Link to="/">
           <img
             className="navbar-brand"

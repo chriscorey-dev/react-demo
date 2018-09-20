@@ -7,7 +7,7 @@ class Footer extends Component {
       <footer className="footer text-center text-light bg-dark">
         <div className="container">
           <div className="row">
-            <div className="col-6 col-md">
+            <div className="col-12 col-md">
               <div className="row">
                 <div className="col">
                   <a
@@ -18,6 +18,7 @@ class Footer extends Component {
                     id="twit-link"
                   />
                 </div>
+
                 {/* <div className="col">
                   <a
                     href="#"
@@ -27,6 +28,7 @@ class Footer extends Component {
                     id="face-link"
                   />
                 </div> */}
+
                 <div className="col">
                   <a
                     href="https://medium.com/@chriscorey_dev"
@@ -36,10 +38,20 @@ class Footer extends Component {
                     id="medium-link"
                   />
                 </div>
+
+                <div className="col">
+                  <a
+                    href="https://stackoverflow.com/users/10266883/chris-corey"
+                    target="_blank"
+                    className="col"
+                    style={{ top: "20%" }}
+                    id="oflow-link"
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="col">
+            <div className="col-md d-none d-md-block">
               <span>
                 Copyright &copy;
                 {new Date().getFullYear()}
@@ -67,9 +79,6 @@ class Footer extends Component {
                   </a>
                   <a className="dropdown-item" href="tel:5124975480">
                     Phone
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Something else here
                   </a>
                 </div>
               </div>

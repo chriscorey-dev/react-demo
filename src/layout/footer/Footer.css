@@ -81,3 +81,26 @@
   background-image: url("/images/medium_01.svg");
   border-radius: 0%;
 }
+
+#oflow-link {
+  padding: 0px;
+  margin: 0px;
+
+  height: 40px;
+  width: 40px;
+  background: white url("/images/stackoverflow-black.svg");
+
+  display: inline-block;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  transition: 0.25s background-image, 0.25s background-color,
+    0.25s border-radius;
+}
+
+#oflow-link:hover {
+  background: url("/images/stackoverflow-reg.svg");
+  border-radius: 0%;
+}
