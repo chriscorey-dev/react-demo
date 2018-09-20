@@ -37,6 +37,10 @@ class NavBar extends Component {
               Beer List
             </NavLink>
 
+            <NavLink className="nav-item nav-link" to="/api-demo">
+              Public REST API Template
+            </NavLink>
+
             <NavLink className="nav-item nav-link" to="/projects">
               Projects
             </NavLink>

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import Home from "../pages/home/Home";
 import Beer from "../pages/beer/Beer";
+import RestApi from "../pages/api-demo/RestApi";
 import Carousel from "../pages/carousel/Carousel";
 import Projects from "../pages/projects/Projects";
 import Demo from "../pages/demo/Demo";
@@ -22,6 +23,7 @@ class Routes extends Component {
         <Route exact path="/beer/:beerPageId" component={Beer} />
         <Redirect exact path="/beer" to="/beer/1" />
 
+        <Route exact path="/api-demo" component={RestApi} />
         <Route exact path="/carousel" component={Carousel} />
         <Route exact path="/demo" component={Demo} />
         <Route exact path="/projects" component={Projects} />

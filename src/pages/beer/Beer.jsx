@@ -56,6 +56,11 @@ class Beer extends Component {
       );
     }
 
+    // const numPages = Math.ceil(
+    //   this.state.data.length / this.state.itemsPerPage
+    // );
+    // this.setState({ numPages: numPages });
+
     const itemRangeMin = itemsPerPage * (beerPageId - 1) + 1;
     const itemRangeMax = itemRangeMin + itemsPerPage - 1;
 
@@ -82,6 +87,14 @@ class Beer extends Component {
           numPages={this.state.numPages}
           url="/beer"
         />
+
+        {/* <input
+          type="number"
+          value={this.state.itemsPerPage}
+          onChange={event => {
+            this.setState({ itemsPerPage: event.target.value });
+          }}
+        /> */}
 
         <div className="row">
           {data.slice(itemRangeMin - 1, itemRangeMax).map(beer => (
