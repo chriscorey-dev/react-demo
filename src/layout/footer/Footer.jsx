@@ -7,7 +7,7 @@ class Footer extends Component {
       <footer className="footer text-center text-light bg-dark">
         <div className="container">
           <div className="row">
-            <div className="col-12 col-md">
+            <div className="col-7 col-md">
               <div className="row">
                 <div className="col">
                   <a
@@ -59,7 +59,8 @@ class Footer extends Component {
               </span>
             </div>
 
-            <div className="col-md d-none d-md-block">
+            {/* <div className="col-md d-none d-md-block"> */}
+            <div className="col-5 col-md">
               <div className="dropup">
                 <button
                   className="btn btn-link text-light dropdown-toggle"
