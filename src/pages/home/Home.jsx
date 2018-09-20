@@ -37,12 +37,16 @@ class Home extends Component {
                 <small>You get the idea.</small>
               </li>
             </ul>
-            <small>
-              What's this site? Projects. Ideas. Broken code. Good code. Have a
-              look around, maybe you'll find something you like.
-            </small>
           </div>
         </div>
+        <h5 className="font-weight-normal">What's this site? </h5>
+        <small>
+          Projects. Ideas. Broken code. Good code. Have a look around, maybe
+          you'll find something you like.
+        </small>
+
+        <br />
+        <br />
 
         <h5 className="font-weight-normal">Current Projects:</h5>
         <ul>
