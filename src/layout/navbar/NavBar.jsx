@@ -38,7 +38,7 @@ class NavBar extends Component {
             </NavLink>
 
             <NavLink className="nav-item nav-link" to="/api-demo">
-              Public REST API Template
+              REST API
             </NavLink>
 
             <NavLink className="nav-item nav-link" to="/projects">
