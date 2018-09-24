@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import BeerCard from "./BeerCard";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/PaginationAdaptable";
+// import Pagination from "../../components/PaginationAdaptable";
 
 // TODO: Pagination truncation
 // TODO: Check state, make sure everything is concise and necessary
 // TODO: Debating how much work each module (beer & pagination) will do for pagination and page number handling.
 //       And debating if an entire new module is necessary for page number handling
+// TODO: Store data and pass the necessary information to where it needs to go. (pagination pages, details page)
+//       Dont' re-get the json. It can bog things down if you do it too much.
+//       Like android development
 
 class Beer extends Component {
   state = {
@@ -13,6 +17,7 @@ class Beer extends Component {
     isLoaded: false,
     // itemsPerPage: 12, // This variable may be set to user input in the future.
     itemsPerPage: 9,
+    // itemsPerPage: 4,
     numPages: null
   };
   componentDidMount() {
