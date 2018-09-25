@@ -1,17 +1,9 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NotFound from "../pages/status-codes/404";
 
 class Pagination extends Component {
-  componentDidMount() {
-    // const numPages = Math.ceil(this.props.numItems / this.props.itemsPerPage);
-    // this.setState({ numPages: numPages });
-  }
-
   render() {
-    // Gets number of pages before rendering
-    // if (!this.props.numPages) return null;
-
     // Checks for bad page number
     if (this.props.badPage)
       return (
@@ -19,6 +11,21 @@ class Pagination extends Component {
           <NotFound message={`The page '${this.props.url}' does not exist.`} />
         </React.Fragment>
       );
+
+    const itemsAlwaysOnEnd = !this.props.itemsAlwaysOnEnd
+      ? 1
+      : this.props.itemsAlwaysOnEnd;
+
+    const itemsInMiddle = !this.props.itemsInMiddle
+      ? 1
+      : this.props.itemsInMiddle;
+
+    const collapsable = !this.props.collapsable
+      ? false
+      : this.props.collapsable;
+
+    // First end, first side of current item, truncated item, current item
+    const truncOffset = itemsAlwaysOnEnd + itemsInMiddle + 1;
 
     return (
       <nav>
@@ -52,29 +59,82 @@ class Pagination extends Component {
             );
             const truncatedItem = <TruncatedItem key={num} />;
 
-            if (this.props.numPages <= 7) {
-              allItems.push(pageItem);
-            } else {
-              // Always show the first and last page
-              if (num + 1 === 1 || num + 1 === this.props.numPages) {
-                allItems.push(pageItem);
+            const pageNum = num + 1;
 
-                // Page is ±1 from current page
-              } else if (
-                num + 1 >= this.props.currPage - 1 &&
-                num <= this.props.currPage
+            const { currPage, numPages } = this.props;
+
+            // Collapsable pagination
+            if (collapsable) {
+              if (
+                num + 1 <= itemsAlwaysOnEnd ||
+                num + 1 > this.props.numPages - itemsAlwaysOnEnd
               ) {
                 allItems.push(pageItem);
-
-                // Handle Truncated item. Currently, offset = 5
+                // Page is ±1 from current page (variable?)
               } else if (
-                (this.props.currPage < 5 && num + 1 <= 5) ||
-                (this.props.currPage > this.props.numPages - 4 &&
-                  num + 1 > this.props.numPages - 5)
+                num + itemsInMiddle >= this.props.currPage - 1 &&
+                num - itemsInMiddle < this.props.currPage
               ) {
                 allItems.push(pageItem);
-              } else if (num + 1 === 2 || num + 1 === this.props.numPages - 1) {
+              } else if (
+                (this.props.currPage < itemsAlwaysOnEnd &&
+                  num + 1 <= itemsAlwaysOnEnd) ||
+                (this.props.currPage >
+                  this.props.numPages - itemsAlwaysOnEnd + 1 &&
+                  num + 1 > this.props.numPages - itemsAlwaysOnEnd)
+              ) {
+                allItems.push(pageItem);
+              } else if (
+                (num + 1 === itemsAlwaysOnEnd + 1 &&
+                  this.props.currPage > itemsAlwaysOnEnd) ||
+                (num + 1 === this.props.numPages - itemsAlwaysOnEnd &&
+                  this.props.currPage < this.props.numPages - itemsAlwaysOnEnd)
+              ) {
                 allItems.push(truncatedItem);
+              }
+
+              // Uncollapsable pagination
+            } else if (!collapsable) {
+              // Start of pagination
+              if (currPage <= truncOffset + 1) {
+                if (pageNum <= truncOffset + itemsInMiddle + 1) {
+                  allItems.push(pageItem);
+                } else if (pageNum === numPages - itemsAlwaysOnEnd) {
+                  allItems.push(truncatedItem);
+                } else if (pageNum >= numPages - itemsAlwaysOnEnd) {
+                  allItems.push(pageItem);
+                }
+
+                // End of pagination
+              } else if (currPage >= numPages - truncOffset) {
+                if (pageNum > numPages - truncOffset - itemsInMiddle - 1) {
+                  allItems.push(pageItem);
+                } else if (pageNum === itemsAlwaysOnEnd + 1) {
+                  allItems.push(truncatedItem);
+                } else if (pageNum <= itemsAlwaysOnEnd) {
+                  allItems.push(pageItem);
+                }
+
+                // Between offsets, no overlap
+              } else if (
+                currPage > truncOffset &&
+                currPage < numPages - truncOffset
+              ) {
+                if (pageNum <= itemsAlwaysOnEnd) {
+                  allItems.push(pageItem);
+                } else if (
+                  pageNum === numPages - itemsAlwaysOnEnd ||
+                  pageNum === itemsAlwaysOnEnd + 1
+                ) {
+                  allItems.push(truncatedItem);
+                } else if (pageNum >= numPages - itemsAlwaysOnEnd) {
+                  allItems.push(pageItem);
+                } else if (
+                  pageNum - 1 - itemsInMiddle < currPage &&
+                  pageNum + 1 + itemsInMiddle > currPage
+                ) {
+                  allItems.push(pageItem);
+                }
               }
             }
             return allItems;
