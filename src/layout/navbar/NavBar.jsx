@@ -41,21 +41,42 @@ class NavBar extends Component {
               REST API
             </NavLink>
 
-            <NavLink className="nav-item nav-link" to="/projects">
-              Projects
-            </NavLink>
+            <div className="nav-item dropdown">
+              <NavLink
+                className={`nav-link dropdown-toggle`}
+                to=""
+                isActive={(match, location) =>
+                  location.pathname === "/projects" ||
+                  location.pathname === "/carousel" ||
+                  location.pathname === "/parallax" ||
+                  location.pathname === "/demo"
+                    ? true
+                    : false
+                }
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+              >
+                Other
+              </NavLink>
 
-            <NavLink className="nav-item nav-link" to="/carousel">
-              Carousel
-            </NavLink>
+              <div className="dropdown-menu">
+                <NavLink className="dropdown-item" to="/projects">
+                  Projects
+                </NavLink>
 
-            <NavLink className="nav-item nav-link" to="/parallax">
-              Parallax
-            </NavLink>
+                <NavLink className="dropdown-item" to="/carousel">
+                  Carousel
+                </NavLink>
 
-            <NavLink className="nav-item nav-link" to="/demo">
-              BS Demo
-            </NavLink>
+                <NavLink className="dropdown-item" to="/parallax">
+                  Parallax
+                </NavLink>
+
+                <NavLink className="dropdown-item" to="/demo">
+                  BS Demo
+                </NavLink>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
