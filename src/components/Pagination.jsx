@@ -63,19 +63,31 @@ class Pagination extends Component {
 
             const { currPage, numPages } = this.props;
 
-            // Collapsable pagination
-            if (collapsable) {
+            // TODO: This isn't giving me exactly what I want.
+            //       Reproduce: collapsable == true, 7 pages, 1 in middle, 1 on end
+            //       The problem is the truncated item is being put in place when it's not necessary. Not an issue when !collapsable
+
+            // If it will contain all items when not uncollapsed
+            if (numPages <= truncOffset * 2 + 1) {
+              allItems.push(pageItem);
+
+              // Collapsable pagination
+            } else if (collapsable) {
+              // Start of pagination
               if (
                 num + 1 <= itemsAlwaysOnEnd ||
                 num + 1 > this.props.numPages - itemsAlwaysOnEnd
               ) {
                 allItems.push(pageItem);
+
                 // Page is ±1 from current page (variable?)
               } else if (
                 num + itemsInMiddle >= this.props.currPage - 1 &&
                 num - itemsInMiddle < this.props.currPage
               ) {
                 allItems.push(pageItem);
+
+                // End of pagination
               } else if (
                 (this.props.currPage < itemsAlwaysOnEnd &&
                   num + 1 <= itemsAlwaysOnEnd) ||
@@ -84,6 +96,8 @@ class Pagination extends Component {
                   num + 1 > this.props.numPages - itemsAlwaysOnEnd)
               ) {
                 allItems.push(pageItem);
+
+                // Truncated items
               } else if (
                 (num + 1 === itemsAlwaysOnEnd + 1 &&
                   this.props.currPage > itemsAlwaysOnEnd) ||
@@ -92,7 +106,6 @@ class Pagination extends Component {
               ) {
                 allItems.push(truncatedItem);
               }
-
               // Uncollapsable pagination
             } else if (!collapsable) {
               // Start of pagination

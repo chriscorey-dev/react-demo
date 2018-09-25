@@ -13,7 +13,8 @@ class Beer extends Component {
   state = {
     data: null,
     isLoaded: false,
-    itemsPerPage: 12, // This variable may be set to user input in the future.
+    // itemsPerPage: 12, // This variable may be set to user input in the future.
+    itemsPerPage: 9,
     numPages: null
   };
   componentDidMount() {
@@ -87,7 +88,6 @@ class Beer extends Component {
           itemsPerPage={itemsPerPage}
           numPages={this.state.numPages}
           url="/beer"
-          // collapsable={true}
         />
 
         {/* <input
@@ -110,6 +110,7 @@ class Beer extends Component {
           itemsPerPage={itemsPerPage}
           numPages={this.state.numPages}
           url="/beer"
+          collapsable={true}
         />
       </div>
     );
