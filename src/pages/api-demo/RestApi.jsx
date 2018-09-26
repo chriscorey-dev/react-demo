@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 
 class RestApi extends Component {
+  componentDidMount() {
+    document.title = "REST API";
+  }
+
   render() {
     return (
       <div className="container">

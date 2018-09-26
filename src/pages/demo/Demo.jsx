@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
 class Demo extends Component {
-  state = {};
+  componentDidMount() {
+    document.title = "Bootstrap 4 demo";
+  }
+
   render() {
     return (
       <React.Fragment>

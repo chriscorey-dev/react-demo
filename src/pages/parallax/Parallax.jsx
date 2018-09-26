@@ -3,7 +3,10 @@ import React, { Component } from "react";
 import "./Parallax.css";
 
 class Parallax extends Component {
-  state = {};
+  componentDidMount() {
+    document.title = "Parallax";
+  }
+
   render() {
     return (
       <div>

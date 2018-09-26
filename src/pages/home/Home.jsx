@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
 class Home extends Component {
-  state = {};
+  componentDidMount() {
+    document.title = "Chris Corey";
+  }
+
   render() {
     return (
       <div className="container">

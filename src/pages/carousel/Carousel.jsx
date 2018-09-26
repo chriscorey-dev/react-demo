@@ -7,6 +7,11 @@ import "./Carousel.css";
 
 class Carousel extends Component {
   state = {};
+
+  componentDidMount() {
+    document.title = "Carousel";
+  }
+
   render() {
     return (
       <React.Fragment>

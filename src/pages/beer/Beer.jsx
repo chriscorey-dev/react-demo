@@ -18,6 +18,8 @@ class Beer extends Component {
     numPages: null
   };
   componentDidMount() {
+    document.title = "Beer List";
+
     // const url = "https://api.myjson.com/bins/powmo";
     // const url = "https://api.punkapi.com/v2/beers/?page=1&per_page=80";
     const url = "https://api.punkapi.com/v2/beers/?page=2&per_page=80";
