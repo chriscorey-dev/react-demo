@@ -18,7 +18,7 @@ class RestApi extends Component {
           <h5>What is this project?</h5>
           <p>
             It's a rather simple REST API generator that creates a public
-            endpoint for any specified databses. It's easily navigable and
+            endpoint for any specified databases. It's easily navigable and
             straightforward to setup.
             <br />
             The project is placed at the root of the web directory and doesn't
@@ -26,7 +26,8 @@ class RestApi extends Component {
           </p>
           <h5>Examples:</h5>
           <p>
-            Try pasting these paths into the url path for this site.
+            Try replacing this site's url path with these paths to access the
+            API.
             <br />
             <small>
               You may need to use an incognito window with the current build.
