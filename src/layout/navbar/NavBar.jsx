@@ -3,8 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import $ from "jquery";
 
 class NavBar extends Component {
-  state = {};
-
   render() {
     closeSlider();
 
