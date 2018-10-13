@@ -53,9 +53,8 @@ class Footer extends Component {
 
             <div className="col-md d-none d-md-block">
               <span>
-                Copyright &copy;
-                {new Date().getFullYear()}
-                <span className="d-none d-sm-inline"> Chris Corey</span>
+                {/* Copyright &copy; */}
+                &copy; {new Date().getFullYear()} Chris Corey
               </span>
             </div>
 
@@ -76,10 +75,12 @@ class Footer extends Component {
                     className="dropdown-item"
                     href="mailto:chris.corey95@gmail.com"
                   >
-                    Email
+                    {/* Email */}
+                    chris.corey95@gmail.com
                   </a>
                   <a className="dropdown-item" href="tel:5124975480">
-                    Phone
+                    {/* Phone */}
+                    (512) 497-5480
                   </a>
                 </div>
               </div>

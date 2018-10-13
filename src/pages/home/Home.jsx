@@ -11,12 +11,13 @@ class Home extends Component {
         <div className="card mb-2">
           <div className="card-header">
             <h2 className="mb-0 font-weight-normal">Chris Corey</h2>
-            <p className="mt-0 font-italic font-weight-light">
-              Programmer, musician, explorer.
+            {/* <p className="mt-0 font-italic font-weight-light"> */}
+            <p className="mt-0 font-weight-light">
+              Business focused full-stack developer.
             </p>
           </div>
           <div className="card-body">
-            <p>Seattle born, Denver grown.</p>
+            {/* <p>Seattle born, Denver grown.</p>
             <p>
               I write code. I play guitar. I go on adventures. I like meeting
               people. I feel like this would look better as a bulleted list...
@@ -39,12 +40,33 @@ class Home extends Component {
               <li>
                 <small>You get the idea.</small>
               </li>
+            </ul> */}
+            I do:
+            <ul>
+              <li>Get things done</li>
+              <li>Learn quickly</li>
+              <li>Ask questions</li>
+              <li>Think critically</li>
+              <li>Take all factors into consideration</li>
+            </ul>
+            I like:
+            <ul>
+              <li>Learning new things</li>
+              <li>Working in a team</li>
+              <li>Helping people through problems</li>
+              <li>Rethinking problems</li>
+              <li>Finding the most effective solutions</li>
+            </ul>
+            I hate:
+            <ul>
+              <li>Solving a symptom and not the cause</li>
+              <li>Leaving projects unfinished</li>
             </ul>
           </div>
         </div>
-        <h5 className="font-weight-normal">What's this site? </h5>
+        <h5 className="font-weight-normal">What is this site? </h5>
         <small>
-          Projects. Ideas. Broken code. Good code. Have a look around, maybe
+          Projects. Ideas. Broken code. Working code. Have a look around, maybe
           you'll find something you like.
         </small>
 
@@ -55,13 +77,13 @@ class Home extends Component {
         <ul>
           <li>
             <div>
-              <a href="https://react.chris-corey.com">You're looking at it</a>
+              <a href="https://react.chris-corey.com">This website</a>
             </div>
           </li>
           <li>
             <div>
               <a href="https://github.com/chriscorey-dev/node-express-react-api">
-                Automatic Public REST API Template
+                Generated Public REST API Template
               </a>
               <br />
               <a
@@ -91,7 +113,7 @@ class Home extends Component {
           </li>
 
           <li>
-            <div>Mo React!</div>
+            <div>More React</div>
           </li>
         </ul>
 
@@ -100,14 +122,14 @@ class Home extends Component {
           <li>
             <div>
               <a href="https://play.google.com/store/apps/details?id=com.upperhouse.MontessoriSchoolOfDenver">
-                Montessori School of Denver android app
+                Montessori School of Denver Android App
               </a>
             </div>
           </li>
 
           <li>
             <div>
-              <a href="https://notes.mybrokencode.com">Note Taking site</a>
+              <a href="https://notes.mybrokencode.com">Note Taking Site</a>
             </div>
           </li>
 
