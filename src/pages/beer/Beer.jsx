@@ -83,7 +83,32 @@ class Beer extends Component {
 
     return (
       <div className="container">
-        <h3 className="m-2">Delicious Beer!</h3>
+        {/* <h4 className="m-2">What is this?</h4> */}
+        <a
+          className="btn btn-outline-secondary"
+          data-toggle="collapse"
+          href="#collapseExample"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
+          What is this page?
+        </a>
+        <br />
+        <br />
+        <div className="collapse" id="collapseExample">
+          <div className="card card-body">
+            This is a template for viewing and buying beer from Brewdog's DIY
+            beer using Punk API. The panels display technical information about
+            the beer, a description, and an option to buy it. I'm using the Punk
+            API to get the data and Bootstrap for the front end.
+            <a href="https://punkapi.com/">Punk API</a>
+            <a href="https://www.brewdog.com/">Brewdog</a>
+          </div>
+
+          <br />
+        </div>
+
         <Pagination
           numItems={data.length}
           currPage={beerPageId}
