@@ -32,7 +32,14 @@ class RestApi extends Component {
           <p>
             Try replacing this site's url path with these paths to access the
             API.
-            <i> (eg. react.chris-corey.com/api)</i>
+            <i>
+              {" "}
+              (eg.{" "}
+              <a target="_blank" href="https://react.chris-corey.com/api">
+                react.chris-corey.com/api
+              </a>
+              )
+            </i>
             <br />
             <small>
               You may need to use an incognito window with the current build.
