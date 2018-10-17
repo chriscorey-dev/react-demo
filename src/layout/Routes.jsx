@@ -4,8 +4,9 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "../pages/home/Home";
 import Beer from "../pages/beer/Beer";
 import RestApi from "../pages/api-demo/RestApi";
-import Carousel from "../pages/carousel/Carousel";
+import Sakila from "../pages/sakila/Sakila";
 import Projects from "../pages/projects/Projects";
+import Carousel from "../pages/carousel/Carousel";
 import Demo from "../pages/demo/Demo";
 import Parallax from "../pages/parallax/Parallax";
 import Test from "../pages/test/Test";
@@ -24,10 +25,12 @@ class Routes extends Component {
         <Redirect exact path="/beer" to="/beer/1" />
 
         <Route exact path="/api-demo" component={RestApi} />
+        <Route exact path="/sakila" component={Sakila} />
+        <Route exact path="/projects" component={Projects} />
         <Route exact path="/carousel" component={Carousel} />
         <Route exact path="/demo" component={Demo} />
-        <Route exact path="/projects" component={Projects} />
         <Route exact path="/parallax" component={Parallax} />
+
         <Route exact path="/test" component={Test} />
         <Route exact path="/protected-page" component={ProtectedPage} />
 

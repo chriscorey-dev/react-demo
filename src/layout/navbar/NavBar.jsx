@@ -39,6 +39,10 @@ class NavBar extends Component {
               REST API
             </NavLink>
 
+            <NavLink className="nav-item nav-link" to="/sakila">
+              Sakila
+            </NavLink>
+
             <div className="nav-item dropdown">
               <NavLink
                 className={`nav-link dropdown-toggle`}
