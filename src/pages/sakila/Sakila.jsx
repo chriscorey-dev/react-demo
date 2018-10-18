@@ -62,14 +62,14 @@ class Sakila extends Component {
     };
 
     const postFilm = body => {
-      fetch(`${url}/${id}`, {
+      fetch(`${url}`, {
         // method: "POST",
         // headers: {
         //   "Content-Type": "application/json; charset=utf-8"
         // },
         // body: JSON.stringify(body)
       })
-        .then(console.log("delete!"))
+        .then(console.log("post!"))
         .then(response => getFilm());
     };
 
@@ -83,6 +83,12 @@ class Sakila extends Component {
         .then(console.log("delete!"))
         .then(response => getFilm());
     };
+
+    // const handleFilmLoad = id => {
+    //   const filmDiv = document.getElementById(`film-info-${id}`);
+    //   const form =
+    // };
+
     return (
       <div className="container">
         <button
@@ -93,44 +99,185 @@ class Sakila extends Component {
         >
           GET
         </button>
+
         <button
           className="btn btn-outline-success btn-sm mr-1"
           onClick={() => {
-            postFilm;
+            postFilm({ title: "New Title" });
           }}
         >
           POST
         </button>
-        <ul className="list-group list-group-flush mt-2">
+
+        <div className="list-group mt-2">
           {data.map(film => (
-            <li key={film.film_id} className="list-group-item">
-              {film.title}
-              <button
-                className="btn btn-outline-danger btn-sm float-right mr-1"
-                onClick={() => {
-                  const confirm = window.confirm(
-                    `Are you sure you want to delete film: ${film.title}`
-                  );
-                  if (confirm) {
-                    deleteFilm(film.film_id);
-                  }
-                }}
+            <div key={film.film_id}>
+              <a
+                data-toggle="collapse"
+                href={`#film-info-${film.film_id}`}
+                className="list-group-item list-group-item-action"
               >
-                DELETE
-              </button>
-              <button
-                className="btn btn-outline-primary btn-sm float-right mr-1"
-                onClick={() => {
-                  const title = prompt("Enter title", film.title);
-                  putFilm(film.film_id, { title: title });
-                }}
-              >
-                PUT
-              </button>
-            </li>
+                {film.title}
+              </a>
+
+              <div className="collapse" id={`film-info-${film.film_id}`}>
+                <div className="card card-body">
+                  {/* Film info form */}
+                  {/* TODO: Make these into external react component */}
+                  <div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">film_id</span>
+                      </div>
+                      <input
+                        type="text"
+                        disabled="disabled"
+                        className="form-control"
+                        placeholder="film_id"
+                        defaultValue={film.film_id}
+                        name="title"
+                      />
+                    </div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Title</span>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Title"
+                        defaultValue={film.title}
+                        name="title"
+                      />
+                    </div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Description</span>
+                      </div>
+                      <textarea
+                        className="form-control"
+                        placeholder="Description"
+                        defaultValue={film.description}
+                        name="description"
+                      />
+                    </div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <label
+                          className="input-group-text"
+                          htmlFor={`inputGroupSelect${film.film_id}`}
+                        >
+                          Rating
+                        </label>
+                      </div>
+                      <select
+                        className="custom-select"
+                        id={`inputGroupSelect${film.film_id}`}
+                        defaultValue={film.rating}
+                      >
+                        <option value="G">G</option>
+                        <option value="PG">PG</option>
+                        <option value="PG-13">PG-13</option>
+                        <option value="NC-17">NC-17</option>
+                        <option value="R">R</option>
+                      </select>
+                    </div>
+
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Release Year</span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Release Year"
+                        defaultValue={film.release_year}
+                        name="year"
+                      />
+                    </div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Length</span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Length"
+                        defaultValue={film.length}
+                        name="length"
+                      />
+                    </div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">
+                          Rental Duration
+                        </span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Rental Duration"
+                        defaultValue={film.rental_duration}
+                        name="duration"
+                      />
+                    </div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Rental Rate</span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Rental Rate"
+                        defaultValue={film.rental_rate}
+                        pattern="\d+(\.\d{2})?"
+                        name="cost"
+                      />
+                    </div>
+                    <div className="input-group mb-1">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">
+                          Replacement Cost
+                        </span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Replacement Cost"
+                        defaultValue={film.replacement_cost}
+                        pattern="\d+(\.\d{2})?"
+                        name="replacement"
+                      />
+                    </div>
+
+                    <button
+                      className="btn btn-outline-danger btn-sm float-right"
+                      onClick={() => {
+                        const confirm = window.confirm(
+                          `Are you sure you want to delete film: ${film.title}`
+                        );
+                        if (confirm) {
+                          deleteFilm(film.film_id);
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="btn btn-outline-primary btn-sm float-right mr-1"
+                      onClick={() => {
+                        const title = prompt("Enter title", film.title);
+                        putFilm(film.film_id, { title: title });
+                      }}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
-        {/* <p>{JSON.stringify(data)}</p> */}
+        </div>
       </div>
     );
   }

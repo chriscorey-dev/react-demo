@@ -83,20 +83,16 @@ class Beer extends Component {
 
     return (
       <div className="container">
-        {/* <h4 className="m-2">What is this?</h4> */}
         <a
           className="btn btn-outline-secondary"
           data-toggle="collapse"
-          href="#collapseExample"
-          role="button"
-          aria-expanded="false"
-          aria-controls="collapseExample"
+          href="#what-is-this-page"
         >
           What is this page?
         </a>
         <br />
         <br />
-        <div className="collapse" id="collapseExample">
+        <div className="collapse" id="what-is-this-page">
           <div className="card card-body">
             This is a template for viewing and buying beer from Brewdog's DIY
             beer using Punk API. The panels display technical information about

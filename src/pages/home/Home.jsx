@@ -41,6 +41,10 @@ class Home extends Component {
                 <small>You get the idea.</small>
               </li>
             </ul> */}
+            <p>
+              Full-stack, business focused, Denver based, self-taught, always
+              learning
+            </p>
             I do:
             <ul>
               <li>Get things done</li>
