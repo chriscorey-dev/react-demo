@@ -4,8 +4,8 @@ import React, { Component } from "react";
 
 class Sakila extends Component {
   state = {
-    url: "http://localhost:3001/api/sakila/film",
-    // const url = "https://api.chris-corey.com/api/sakila/film";
+    // url: "http://localhost:3001/api/sakila/film",
+    url: "https://api.chris-corey.com/api/sakila/film",
     data: null
   };
 
@@ -84,10 +84,7 @@ class Sakila extends Component {
         .then(response => getFilm());
     };
 
-    // const handleFilmLoad = id => {
-    //   const filmDiv = document.getElementById(`film-info-${id}`);
-    //   const form =
-    // };
+    const buildJSONFromForm = () => {};
 
     return (
       <div className="container">
