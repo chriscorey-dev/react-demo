@@ -24,8 +24,10 @@ class Routes extends Component {
         <Route exact path="/beer/:beerPageId" component={Beer} />
         <Redirect exact path="/beer" to="/beer/1" />
 
+        <Route exact path="/sakila/:pageId" component={Sakila} />
+        <Redirect exact path="/sakila" to="/sakila/1" />
+
         <Route exact path="/api-demo" component={RestApi} />
-        <Route exact path="/sakila" component={Sakila} />
         <Route exact path="/projects" component={Projects} />
         <Route exact path="/carousel" component={Carousel} />
         <Route exact path="/demo" component={Demo} />
