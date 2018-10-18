@@ -5,8 +5,8 @@ import Pagination from "../../components/Pagination";
 
 class Sakila extends Component {
   state = {
-    url: "http://localhost:3001/api/sakila/film",
-    // url: "https://api.chris-corey.com/api/sakila/film",
+    // url: "http://localhost:3001/api/sakila/film",
+    url: "https://api.chris-corey.com/api/sakila/film",
     data: null,
 
     itemsPerPage: 25,
