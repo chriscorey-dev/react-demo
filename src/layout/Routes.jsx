@@ -3,8 +3,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import Home from "../pages/home/Home";
 import Beer from "../pages/beer/Beer";
-import RestApi from "../pages/api-demo/RestApi";
 import Sakila from "../pages/sakila/Sakila";
+import RestApi from "../pages/api-demo/RestApi";
 import Projects from "../pages/projects/Projects";
 import Carousel from "../pages/carousel/Carousel";
 import Demo from "../pages/demo/Demo";

@@ -8,6 +8,7 @@ class Sakila extends Component {
     // url: "http://localhost:3001/api/sakila/film",
     url: "https://api.chris-corey.com/api/sakila/film",
     data: null,
+    isLoaded: false,
 
     itemsPerPage: 25,
     numPages: null
@@ -29,12 +30,34 @@ class Sakila extends Component {
           this.state.data.length / this.state.itemsPerPage
         );
         this.setState({ numPages: numPages });
-      });
+      })
+      .then(res => this.setState({ isLoaded: true }));
   }
 
   render() {
-    const { data, url, itemsPerPage, numPages } = this.state;
+    const { data, url, isLoaded, itemsPerPage, numPages } = this.state;
     const { pageId } = this.props.match.params;
+
+    // Checks data
+    if (!isLoaded) {
+      return (
+        <div className="container">
+          <p>Loading Films...</p>
+        </div>
+      );
+    }
+
+    const itemRangeMin = itemsPerPage * (pageId - 1) + 1;
+    const itemRangeMax = itemRangeMin + itemsPerPage - 1;
+
+    // Checks for bad url
+    if (pageId < 1 || pageId > numPages || isNaN(pageId)) {
+      return (
+        <div className="container">
+          <Pagination badPage={true} url={this.props.match.url} />
+        </div>
+      );
+    }
 
     const getFilm = id => {
       // TODO: Validate parameters
@@ -72,43 +95,63 @@ class Sakila extends Component {
         //   "Content-Type": "application/json; charset=utf-8"
         // },
         // body: JSON.stringify(body)
-      })
-        .then(console.log("post!"))
-        .then(response => getFilm());
+      }).then(console.log("post!"));
     };
 
-    const deleteFilm = id => {
+    const deleteFilm = film => {
+      const confirm = window.confirm(
+        `Are you sure you want to delete film: ${film.title}`
+      );
+      if (!confirm) {
+        return null;
+      }
       // TODO: Validate parameters
       // if (body == {}) return false;
 
-      fetch(`${url}/${id}`, {
+      fetch(`${url}/${film.film_id}`, {
         // method: "DELETE"
-      })
-        .then(console.log("delete!"))
-        .then(response => getFilm());
+      }).then(console.log("delete!"));
+    };
+
+    const resetItem = film => {
+      const reset = window.confirm(
+        "All unsaved changes for this item will be lost. Reset item?"
+      );
+
+      if (!reset) {
+        return null;
+      }
+
+      const elements = document
+        .getElementById(`film-info-${film.film_id}`)
+        .querySelectorAll("input, textarea, select");
+
+      elements.forEach((item, index) => {
+        if (index !== 0) {
+          // Checks for diffs
+          if (film[item.name] != item.value) {
+            item.value = film[item.name];
+            item.parentElement.classList.remove("border");
+          }
+        }
+      });
+    };
+
+    const handleFieldChange = (film, event) => {
+      if (film[event.target.name] != event.target.value) {
+        event.target.parentElement.classList.add("border");
+        document
+          .getElementById(`film-info-${film.film_id}`)
+          .parentElement.classList.add("border");
+      } else {
+        event.target.parentElement.classList.remove("border");
+        document
+          .getElementById(`film-info-${film.film_id}`)
+          .parentElement.classList.remove("border");
+      }
     };
 
     const buildJSONFromForm = () => {};
-
-    // Checks data
-    if (!data) {
-      return (
-        <div className="container">
-          <p>Loading Films...</p>
-        </div>
-      );
-    }
-    const itemRangeMin = itemsPerPage * (pageId - 1) + 1;
-    const itemRangeMax = itemRangeMin + itemsPerPage - 1;
-
-    // Checks for bad url
-    if (pageId < 1 || pageId > numPages || isNaN(pageId)) {
-      return (
-        <div className="container">
-          <Pagination badPage={true} url={this.props.match.url} />
-        </div>
-      );
-    }
 
     return (
       <div className="container">
@@ -120,27 +163,37 @@ class Sakila extends Component {
           url="/sakila"
         />
 
+        {/* TODO: Make multiple selections possible */}
         <button
           className="btn btn-outline-primary btn-sm mr-1"
           onClick={() => {
-            getFilm();
+            // getFilm();
           }}
         >
-          GET
+          Refresh
         </button>
+
         <button
           className="btn btn-outline-success btn-sm mr-1"
           onClick={() => {
             postFilm({ title: "New Title" });
           }}
         >
-          POST
+          New Entry
         </button>
 
-        <div className="list-group mt-2">
+        {/* TODO: Save-all button? */}
+
+        <div className="list-group mt-2 mb-2">
           {data.slice(itemRangeMin - 1, itemRangeMax).map(film => (
-            // <BeerCard key={beer.id} beer={beer} />
-            <FilmItem film={film} deleteFilm={deleteFilm} putFilm={putFilm} />
+            <FilmItem
+              film={film}
+              key={film.film_id}
+              putFilm={putFilm}
+              deleteFilm={deleteFilm}
+              handleFieldChange={handleFieldChange}
+              resetItem={resetItem}
+            />
           ))}
         </div>
 
@@ -157,9 +210,9 @@ class Sakila extends Component {
 }
 
 const FilmItem = props => {
-  const { film, deleteFilm, putFilm } = props;
+  const { film, deleteFilm, putFilm, handleFieldChange, resetItem } = props;
   return (
-    <div key={film.film_id}>
+    <div key={film.film_id} className="rounded border-info">
       <a
         data-toggle="collapse"
         href={`#film-info-${film.film_id}`}
@@ -172,7 +225,7 @@ const FilmItem = props => {
         <div className="card card-body">
           {/* Film info form */}
           <div>
-            <div className="input-group mb-1">
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">film_id</span>
               </div>
@@ -185,7 +238,7 @@ const FilmItem = props => {
                 name="film_id"
               />
             </div>
-            <div className="input-group mb-1">
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">Title</span>
               </div>
@@ -195,9 +248,11 @@ const FilmItem = props => {
                 placeholder="Title"
                 defaultValue={film.title}
                 name="title"
+                onChange={e => handleFieldChange(film, e)}
               />
             </div>
-            <div className="input-group mb-1">
+
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">Description</span>
               </div>
@@ -206,9 +261,11 @@ const FilmItem = props => {
                 placeholder="Description"
                 defaultValue={film.description}
                 name="description"
+                onChange={e => handleFieldChange(film, e)}
               />
             </div>
-            <div className="input-group mb-1">
+
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <label
                   className="input-group-text"
@@ -222,6 +279,7 @@ const FilmItem = props => {
                 id={`inputGroupSelect${film.film_id}`}
                 defaultValue={film.rating}
                 name="rating"
+                onChange={e => handleFieldChange(film, e)}
               >
                 <option value="G">G</option>
                 <option value="PG">PG</option>
@@ -231,7 +289,7 @@ const FilmItem = props => {
               </select>
             </div>
 
-            <div className="input-group mb-1">
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">Release Year</span>
               </div>
@@ -241,9 +299,10 @@ const FilmItem = props => {
                 placeholder="Release Year"
                 defaultValue={film.release_year}
                 name="release_year"
+                onChange={e => handleFieldChange(film, e)}
               />
             </div>
-            <div className="input-group mb-1">
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">Length</span>
               </div>
@@ -253,9 +312,10 @@ const FilmItem = props => {
                 placeholder="Length"
                 defaultValue={film.length}
                 name="length"
+                onChange={e => handleFieldChange(film, e)}
               />
             </div>
-            <div className="input-group mb-1">
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">Rental Duration</span>
               </div>
@@ -265,9 +325,10 @@ const FilmItem = props => {
                 placeholder="Rental Duration"
                 defaultValue={film.rental_duration}
                 name="rental_duration"
+                onChange={e => handleFieldChange(film, e)}
               />
             </div>
-            <div className="input-group mb-1">
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">Rental Rate</span>
               </div>
@@ -278,9 +339,10 @@ const FilmItem = props => {
                 defaultValue={film.rental_rate}
                 pattern="\d+(\.\d{2})?"
                 name="rental_rate"
+                onChange={e => handleFieldChange(film, e)}
               />
             </div>
-            <div className="input-group mb-1">
+            <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
                 <span className="input-group-text">Replacement Cost</span>
               </div>
@@ -291,39 +353,27 @@ const FilmItem = props => {
                 defaultValue={film.replacement_cost}
                 pattern="\d+(\.\d{2})?"
                 name="replacement_cost"
+                onChange={e => handleFieldChange(film, e)}
               />
             </div>
 
             <button
-              className="btn btn-outline-danger btn-sm float-right"
-              onClick={() => {
-                const confirm = window.confirm(
-                  `Are you sure you want to delete film: ${film.title}`
-                );
-                if (confirm) {
-                  deleteFilm(film.film_id);
-                }
-              }}
-            >
-              Delete
-            </button>
-            <button
-              className="btn btn-outline-primary btn-sm float-right mr-1"
+              className="btn btn-outline-primary btn-sm mr-1"
               onClick={() => {
                 const elements = document
                   .getElementById(`film-info-${film.film_id}`)
+                  // .getElementsByTagName
                   .querySelectorAll("input, textarea, select");
 
-                let id = null;
+                const id = film.film_id;
                 let body = {};
 
                 elements.forEach((item, index) => {
-                  if (index === 0) {
-                    id = item.value;
-                  } else {
+                  if (index !== 0) {
                     // Checks for diffs
                     if (film[item.name] != item.value) {
                       body[item.name] = item.value;
+                      item.parentElement.classList.remove("border");
                     }
                   }
                 });
@@ -335,6 +385,20 @@ const FilmItem = props => {
               }}
             >
               Save
+            </button>
+
+            <button
+              className="btn btn-outline-primary btn-sm mr-1"
+              onClick={() => resetItem(film)}
+            >
+              Reset
+            </button>
+
+            <button
+              className="btn btn-outline-danger btn-sm mr-1"
+              onClick={() => deleteFilm(film)}
+            >
+              Delete
             </button>
           </div>
         </div>
