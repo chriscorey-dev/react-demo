@@ -47,6 +47,7 @@ class Sakila extends Component {
       );
     }
 
+    // TODO: When items are created or deleted, update this info
     const itemRangeMin = itemsPerPage * (pageId - 1) + 1;
     const itemRangeMax = itemRangeMin + itemsPerPage - 1;
 
@@ -60,32 +61,55 @@ class Sakila extends Component {
     }
 
     const getFilm = id => {
-      // TODO: Validate parameters
-      // let useUrl = null;
-      // if (id == null) {
-      //   useUrl = `${url}/${id}`;
-      // }
+      return new Promise((resolve, reject) => {
+        // TODO: Validate parameters
 
-      fetch(url)
-        .then(response => response.json())
-        .then(response =>
-          this.setState({
-            data: response
+        fetch(`${url}/${id}`)
+          .then(response => response.json())
+          .then(film => {
+            const dataIndex = data[film.film_id];
+
+            this.setState((data[dataIndex] = film));
+
+            return film;
           })
-        );
+          .then(film => resolve(film));
+      });
     };
 
     const putFilm = (id, body) => {
-      // TODO: Validate parameters
+      // TODO: Validate parameters, make errors
       // if (body == {}) return false;
 
+      // Updates diffs in database with REST PUT statement
       fetch(`${url}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json; charset=utf-8"
         },
         body: JSON.stringify(body)
-      }).then(response => getFilm());
+      })
+        // Updates this.state.data with current and returns modified film object. This is important
+        .then(res => getFilm(id))
+        // Updates fields
+        .then(res => getAllFilms())
+        // Removes highlights
+        .then(response => {
+          const elements = document
+            .getElementById(`film-info-${id}`)
+            .querySelectorAll("input, textarea, select");
+
+          // Removes highlight for fields
+          elements.forEach(item => {
+            item.parentElement.classList.remove("border");
+          });
+
+          // Remove highlight for title
+          document
+            .getElementById(`film-info-${id}`)
+            .parentElement.classList.remove("border");
+          return response;
+        });
     };
 
     const postFilm = body => {
@@ -113,6 +137,22 @@ class Sakila extends Component {
       }).then(console.log("delete!"));
     };
 
+    const getAllFilms = () => {
+      // TODO: Validate parameters
+      // let useUrl = null;
+      // if (id == null) {
+      //   useUrl = `${url}/${id}`;
+      // }
+
+      fetch(url)
+        .then(response => response.json())
+        .then(response =>
+          this.setState({
+            data: response
+          })
+        );
+    };
+
     const resetItem = film => {
       const reset = window.confirm(
         "All unsaved changes for this item will be lost. Reset item?"
@@ -137,18 +177,28 @@ class Sakila extends Component {
       });
     };
 
+    // TODO: Check for changes on outside edit outline
     const handleFieldChange = (film, event) => {
-      if (film[event.target.name] != event.target.value) {
-        event.target.parentElement.classList.add("border");
-        document
-          .getElementById(`film-info-${film.film_id}`)
-          .parentElement.classList.add("border");
+      const field = event.target;
+      const fieldPill = field.parentElement;
+      const title = document.getElementById(`film-info-${film.film_id}`)
+        .parentElement;
+
+      if (film[field.name] != field.value) {
+        addClass(title, "border");
+        addClass(fieldPill, "border");
       } else {
-        event.target.parentElement.classList.remove("border");
-        document
-          .getElementById(`film-info-${film.film_id}`)
-          .parentElement.classList.remove("border");
+        removeClass(title, "border");
+        removeClass(fieldPill, "border");
       }
+    };
+
+    const addClass = (element, className) => {
+      element.classList.add(className);
+    };
+
+    const removeClass = (element, className) => {
+      element.classList.remove(className);
     };
 
     const buildJSONFromForm = () => {};
@@ -167,10 +217,19 @@ class Sakila extends Component {
         <button
           className="btn btn-outline-primary btn-sm mr-1"
           onClick={() => {
-            // getFilm();
+            // getAllFilms();
           }}
         >
           Refresh
+        </button>
+
+        <button
+          className="btn btn-outline-primary btn-sm mr-1"
+          onClick={() => {
+            getFilm(1).then(res => console.log(res));
+          }}
+        >
+          get 1
         </button>
 
         <button
@@ -362,7 +421,7 @@ const FilmItem = props => {
               onClick={() => {
                 const elements = document
                   .getElementById(`film-info-${film.film_id}`)
-                  // .getElementsByTagName
+                  // .getElementsByTagName // Maybe better
                   .querySelectorAll("input, textarea, select");
 
                 const id = film.film_id;
@@ -370,10 +429,9 @@ const FilmItem = props => {
 
                 elements.forEach((item, index) => {
                   if (index !== 0) {
-                    // Checks for diffs
+                    // Checks for diffs, builds body variable with new data
                     if (film[item.name] != item.value) {
                       body[item.name] = item.value;
-                      item.parentElement.classList.remove("border");
                     }
                   }
                 });
