@@ -177,7 +177,6 @@ class Sakila extends Component {
 
     // Sets state's page number. For pagination
     // TODO: Navigate to page 1 when searching
-    // TODO: When no results appear, show error
     if (
       this.state.data.filter(film =>
         film.title.toLowerCase().includes(search.toLowerCase())
@@ -481,7 +480,8 @@ const FilmItem = props => {
                   .then(res => {
                     removeAllHighlights(film.film_id);
                     return res;
-                  });
+                  })
+                  .catch(error => error);
               }}
             >
               Save
