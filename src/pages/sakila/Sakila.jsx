@@ -11,6 +11,8 @@ class Sakila extends Component {
     data: null,
     isLoaded: false,
 
+    search: "",
+
     itemsPerPage: 25,
     numPages: null
   };
@@ -19,18 +21,12 @@ class Sakila extends Component {
     document.title = "Sakila";
 
     this.getAllFilms()
-      // .catch(error => console.log(error))
-      .then(films => {
-        this.setState({
-          data: films
-        });
+      .then(data => {
+        this.setState({ data });
 
-        // Calculating number of pages
-        const numPages = Math.ceil(
-          this.state.data.length / this.state.itemsPerPage
-        );
+        this.setNumOfPages(this.state.data);
 
-        this.setState({ numPages: numPages, isLoaded: true });
+        this.setState({ isLoaded: true });
       })
       .catch(error => console.log(error));
   }
@@ -74,6 +70,11 @@ class Sakila extends Component {
     }).then(console.log("delete!"));
   };
 
+  setNumOfPages = data =>
+    this.setState({
+      numPages: Math.ceil(data.length / this.state.itemsPerPage)
+    });
+
   getAllFilms = () => fetch(this.url).then(response => response.json());
 
   // Updates state's data with argument
@@ -97,14 +98,6 @@ class Sakila extends Component {
 
   // Resets specified item to state's data value
   resetItem = film => {
-    const reset = window.confirm(
-      "All unsaved changes for this item will be lost. Reset item?"
-    );
-
-    if (!reset) {
-      return null;
-    }
-
     // Resets values
     const fields = document
       .getElementById(`film-info-${film.film_id}`)
@@ -118,6 +111,14 @@ class Sakila extends Component {
         // }
       }
     });
+
+    const reset = window.confirm(
+      "All unsaved changes for this item will be lost. Reset item?"
+    );
+
+    if (!reset) {
+      return null;
+    }
 
     // Removes highlights
     this.removeAllHighlights(film.film_id);
@@ -163,6 +164,35 @@ class Sakila extends Component {
     this.removeClass(title, "border");
   };
 
+  // // Updates search on field change
+  // handleSearchChange = e => {
+  //   const search = e.target.value;
+  //   this.setState({ search });
+  // };
+
+  // Updates search on submit
+  handleSearchSubmit = () => {
+    const search = document.getElementById("search").value;
+    this.setState({ search });
+
+    // Sets state's page number. For pagination
+    // TODO: Navigate to page 1 when searching
+    // TODO: When no results appear, show error
+    if (
+      this.state.data.filter(film =>
+        film.title.toLowerCase().includes(search.toLowerCase())
+      ).length === 0
+    ) {
+      this.setState({ numPages: 1 });
+    } else {
+      this.setNumOfPages(
+        this.state.data.filter(film =>
+          film.title.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
+  };
+
   render() {
     const { data, isLoaded, itemsPerPage, numPages } = this.state;
     const { pageId } = this.props.match.params;
@@ -193,22 +223,11 @@ class Sakila extends Component {
     return (
       <div className="container">
         <Pagination
-          numItems={data.length}
           currPage={pageId}
-          itemsPerPage={12}
+          itemsPerPage={this.state.itemsPerPage}
           numPages={this.state.numPages}
           url="/sakila"
         />
-
-        {/* TODO: Make multiple selections possible */}
-        <button
-          className="btn btn-outline-primary btn-sm mr-1"
-          onClick={() => {
-            this.getAllFilms();
-          }}
-        >
-          Refresh
-        </button>
 
         <button
           className="btn btn-outline-success btn-sm mr-1"
@@ -219,27 +238,57 @@ class Sakila extends Component {
           New Entry
         </button>
 
-        {/* TODO: Save-all button? */}
-
-        <div className="list-group mt-2 mb-2">
-          {data.slice(itemRangeMin - 1, itemRangeMax).map(film => (
-            <FilmItem
-              film={film}
-              key={film.film_id}
-              putFilm={this.putFilm}
-              deleteFilm={this.deleteFilm}
-              handleFieldChange={this.handleFieldChange}
-              resetItem={this.resetItem}
-              updateDataItem={this.updateDataItem}
-              removeAllHighlights={this.removeAllHighlights}
+        <div className="float-right">
+          <form className="form-inline" onSubmit={e => e.preventDefault()}>
+            <input
+              className="form-control form-control-sm"
+              type="search"
+              placeholder="Search by Title"
+              id="search"
+              // value={this.state.search}
+              // onChange={e => this.handleSearchChange(e)}
             />
-          ))}
+            <button
+              className="btn btn-outline-primary btn-sm ml-1"
+              type="submit"
+              onClick={e => this.handleSearchSubmit()}
+            >
+              Search
+            </button>
+          </form>
+        </div>
+
+        {/* TODO: Save-all button? */}
+        <div className="list-group mt-2 mb-2">
+          {(() => {
+            const dataFiltered = data.filter(film =>
+              film.title.toLowerCase().includes(this.state.search.toLowerCase())
+            );
+
+            if (dataFiltered.length === 0) {
+              return <p>No Search Results</p>;
+            } else {
+              return dataFiltered
+                .slice(itemRangeMin - 1, itemRangeMax)
+                .map(film => (
+                  <FilmItem
+                    film={film}
+                    key={film.film_id}
+                    putFilm={this.putFilm}
+                    deleteFilm={this.deleteFilm}
+                    handleFieldChange={this.handleFieldChange}
+                    resetItem={this.resetItem}
+                    updateDataItem={this.updateDataItem}
+                    removeAllHighlights={this.removeAllHighlights}
+                  />
+                ));
+            }
+          })()}
         </div>
 
         <Pagination
-          numItems={data.length}
           currPage={pageId}
-          itemsPerPage={12}
+          itemsPerPage={this.state.itemsPerPage}
           numPages={this.state.numPages}
           url="/sakila"
         />
