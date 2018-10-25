@@ -98,11 +98,19 @@ class Sakila extends Component {
 
   // Resets specified item to state's data value
   resetItem = film => {
-    // Resets values
+    const reset = window.confirm(
+      "All unsaved changes for this item will be lost. Reset item?"
+    );
+
+    if (!reset) {
+      return null;
+    }
+
     const fields = document
       .getElementById(`film-info-${film.film_id}`)
       .querySelectorAll("input, textarea, select");
 
+    // Resets values
     fields.forEach((field, index) => {
       if (index !== 0) {
         // Checks for diffs. Not sure if better or worse. Look into
@@ -111,14 +119,6 @@ class Sakila extends Component {
         // }
       }
     });
-
-    const reset = window.confirm(
-      "All unsaved changes for this item will be lost. Reset item?"
-    );
-
-    if (!reset) {
-      return null;
-    }
 
     // Removes highlights
     this.removeAllHighlights(film.film_id);
@@ -251,7 +251,7 @@ class Sakila extends Component {
             <button
               className="btn btn-outline-primary btn-sm ml-1"
               type="submit"
-              onClick={e => this.handleSearchSubmit()}
+              onClick={() => this.handleSearchSubmit()}
             >
               Search
             </button>
