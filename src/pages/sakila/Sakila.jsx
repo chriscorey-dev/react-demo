@@ -4,9 +4,10 @@ import Pagination from "../../components/Pagination";
 // TODO: Setup authentication for posts for public api built on back end.
 
 class Sakila extends Component {
+  url = "https://api.chris-corey.com/api/sakila/film";
   state = {
     // url: "http://localhost:3001/api/sakila/film",
-    url: "https://api.chris-corey.com/api/sakila/film",
+    // url: "https://api.chris-corey.com/api/sakila/film",
     data: null,
     isLoaded: false,
 
@@ -17,25 +18,153 @@ class Sakila extends Component {
   componentDidMount() {
     document.title = "Sakila";
 
-    fetch(this.state.url)
-      .then(response => response.json())
-      .then(response => {
+    this.getAllFilms()
+      // .catch(error => console.log(error))
+      .then(films => {
         this.setState({
-          data: response
+          data: films
         });
-      })
-      .then(res => {
+
         // Calculating number of pages
         const numPages = Math.ceil(
           this.state.data.length / this.state.itemsPerPage
         );
-        this.setState({ numPages: numPages });
+
+        this.setState({ numPages: numPages, isLoaded: true });
       })
-      .then(res => this.setState({ isLoaded: true }));
+      .catch(error => console.log(error));
   }
 
+  getFilm = id => fetch(`${this.url}/${id}`).then(response => response.json());
+  // TODO: Validate parameters
+
+  putFilm = (film, body) =>
+    // TODO: Validate parameters, make errors
+    // TODO: validation is making some entries break. Fix it
+    // Updates diffs in database with REST PUT statement
+    fetch(`${this.url}/${film.film_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify(body)
+    }).then(res => res.json());
+
+  postFilm = body =>
+    fetch(`${this.url}`, {
+      // method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json; charset=utf-8"
+      // },
+      // body: JSON.stringify(body)
+    }).then(console.log("post!"));
+
+  deleteFilm = film => {
+    const confirm = window.confirm(
+      `Are you sure you want to delete film: ${film.title}`
+    );
+    if (!confirm) {
+      return null;
+    }
+    // TODO: Validate parameters
+    // if (body == {}) return false;
+
+    fetch(`${this.url}/${film.film_id}`, {
+      // method: "DELETE"
+    }).then(console.log("delete!"));
+  };
+
+  getAllFilms = () => fetch(this.url).then(response => response.json());
+
+  // Updates state's data with argument
+  updateDataItem = (film, body) => {
+    const dataIndex = this.state.data.findIndex(
+      item => item.film_id === film.film_id
+    );
+
+    const item = this.state.data[dataIndex];
+    Object.keys(body).forEach(key => {
+      item[key] = body[key];
+    });
+
+    const data = this.state.data;
+    data[dataIndex] = item;
+
+    this.setState({ data });
+
+    return film;
+  };
+
+  // Resets specified item to state's data value
+  resetItem = film => {
+    const reset = window.confirm(
+      "All unsaved changes for this item will be lost. Reset item?"
+    );
+
+    if (!reset) {
+      return null;
+    }
+
+    // Resets values
+    const fields = document
+      .getElementById(`film-info-${film.film_id}`)
+      .querySelectorAll("input, textarea, select");
+
+    fields.forEach((field, index) => {
+      if (index !== 0) {
+        // Checks for diffs. Not sure if better or worse. Look into
+        // if (film[field.name] != field.value) {
+        field.value = film[field.name];
+        // }
+      }
+    });
+
+    // Removes highlights
+    this.removeAllHighlights(film.film_id);
+  };
+
+  // TODO: Check for changes on outside edit outline
+  handleFieldChange = (film, event) => {
+    const field = event.target;
+    const fieldPill = field.parentElement;
+    const title = document.getElementById(`film-info-${film.film_id}`)
+      .parentElement;
+
+    // If there is a diff, add highlight. If not remove it
+    if (film[field.name] != field.value) {
+      this.addClass(title, "border");
+      this.addClass(fieldPill, "border");
+    } else {
+      this.removeClass(title, "border");
+      this.removeClass(fieldPill, "border");
+    }
+  };
+
+  addClass = (element, className) => {
+    element.classList.add(className);
+  };
+
+  removeClass = (element, className) => {
+    element.classList.remove(className);
+  };
+
+  removeAllHighlights = id => {
+    const title = document.getElementById(`film-info-${id}`).parentElement;
+    const fields = document
+      .getElementById(`film-info-${id}`)
+      .querySelectorAll("input, textarea, select");
+
+    // Removes highlight for fields
+    fields.forEach(field => {
+      this.removeClass(field.parentElement, "border");
+    });
+
+    // Remove highlight for title
+    this.removeClass(title, "border");
+  };
+
   render() {
-    const { data, url, isLoaded, itemsPerPage, numPages } = this.state;
+    const { data, isLoaded, itemsPerPage, numPages } = this.state;
     const { pageId } = this.props.match.params;
 
     // Checks data
@@ -47,6 +176,7 @@ class Sakila extends Component {
       );
     }
 
+    // TODO: Edited items reset when user leaves the page
     // TODO: When items are created or deleted, update this info
     const itemRangeMin = itemsPerPage * (pageId - 1) + 1;
     const itemRangeMax = itemRangeMin + itemsPerPage - 1;
@@ -59,171 +189,6 @@ class Sakila extends Component {
         </div>
       );
     }
-
-    const getFilm = id => {
-      return new Promise((resolve, reject) => {
-        // TODO: Validate parameters
-
-        fetch(`${url}/${id}`)
-          .then(response => response.json())
-          // Updates state's data with response from database
-          .then(film => {
-            const dataIndex = data.findIndex(film => film.film_id === id);
-
-            this.setState((data[dataIndex] = film));
-
-            return film;
-          })
-          .then(film => resolve(film));
-      });
-    };
-
-    const putFilm = (film, body) => {
-      //   // TODO: Validate parameters, make errors
-      //   // if (body == {}) return false;
-
-      const id = film.film_id;
-
-      return new Promise((resolve, reject) => {
-        // Updates diffs in database with REST PUT statement
-        fetch(`${url}/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8"
-          },
-          body: JSON.stringify(body)
-        })
-          .then(res => res.json())
-          // Updates this.state.data with current and returns modified film object. This is important
-          .then(res => {
-            const dataIndex = data.findIndex(item => item.film_id === id);
-            this.setState((data[dataIndex] = res));
-            return res;
-          })
-          // Removes highlights
-          .then(res => {
-            removeAllHighlights(id);
-            return res;
-          })
-          .then(res => resolve(res));
-      });
-    };
-
-    const postFilm = body => {
-      fetch(`${url}`, {
-        // method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json; charset=utf-8"
-        // },
-        // body: JSON.stringify(body)
-      }).then(console.log("post!"));
-    };
-
-    const deleteFilm = film => {
-      const confirm = window.confirm(
-        `Are you sure you want to delete film: ${film.title}`
-      );
-      if (!confirm) {
-        return null;
-      }
-      // TODO: Validate parameters
-      // if (body == {}) return false;
-
-      fetch(`${url}/${film.film_id}`, {
-        // method: "DELETE"
-      }).then(console.log("delete!"));
-    };
-
-    // const httpRequest = (id, method, headers, body) => {
-    //   return new Promise((resolve, reject) => {
-    //     fetch().then(res => resolve(res));
-    //   });
-    // };
-
-    // Updates state's data with database
-    const getAllFilms = () => {
-      return new Promise((resolve, reject) => {
-        fetch(url)
-          .then(response => response.json())
-          .then(films => {
-            this.setState({
-              data: films
-            });
-            return films;
-          })
-          .then(films => resolve(films));
-      });
-    };
-
-    // Resets specified item to state's data value
-    const resetItem = film => {
-      const reset = window.confirm(
-        "All unsaved changes for this item will be lost. Reset item?"
-      );
-
-      if (!reset) {
-        return null;
-      }
-
-      // Resets values
-      const fields = document
-        .getElementById(`film-info-${film.film_id}`)
-        .querySelectorAll("input, textarea, select");
-
-      fields.forEach((field, index) => {
-        if (index !== 0) {
-          // Checks for diffs. Not sure if better or worse. Look into
-          // if (film[field.name] != field.value) {
-          field.value = film[field.name];
-          // }
-        }
-      });
-
-      // Removes highlights
-      removeAllHighlights(film.film_id);
-    };
-
-    // TODO: Check for changes on outside edit outline
-    const handleFieldChange = (film, event) => {
-      const field = event.target;
-      const fieldPill = field.parentElement;
-      const title = document.getElementById(`film-info-${film.film_id}`)
-        .parentElement;
-
-      // If there is a diff, add highlight. If not remove it
-      if (film[field.name] != field.value) {
-        addClass(title, "border");
-        addClass(fieldPill, "border");
-      } else {
-        removeClass(title, "border");
-        removeClass(fieldPill, "border");
-      }
-    };
-
-    const addClass = (element, className) => {
-      element.classList.add(className);
-    };
-
-    const removeClass = (element, className) => {
-      element.classList.remove(className);
-    };
-
-    const removeAllHighlights = id => {
-      const title = document.getElementById(`film-info-${id}`).parentElement;
-      const fields = document
-        .getElementById(`film-info-${id}`)
-        .querySelectorAll("input, textarea, select");
-
-      // Removes highlight for fields
-      fields.forEach(field => {
-        removeClass(field.parentElement, "border");
-      });
-
-      // Remove highlight for title
-      removeClass(title, "border");
-    };
-
-    const buildJSONFromForm = () => {};
 
     return (
       <div className="container">
@@ -239,7 +204,7 @@ class Sakila extends Component {
         <button
           className="btn btn-outline-primary btn-sm mr-1"
           onClick={() => {
-            getAllFilms();
+            this.getAllFilms();
           }}
         >
           Refresh
@@ -248,7 +213,7 @@ class Sakila extends Component {
         <button
           className="btn btn-outline-success btn-sm mr-1"
           onClick={() => {
-            postFilm({ title: "New Title" });
+            this.postFilm({ title: "New Title" });
           }}
         >
           New Entry
@@ -261,10 +226,12 @@ class Sakila extends Component {
             <FilmItem
               film={film}
               key={film.film_id}
-              putFilm={putFilm}
-              deleteFilm={deleteFilm}
-              handleFieldChange={handleFieldChange}
-              resetItem={resetItem}
+              putFilm={this.putFilm}
+              deleteFilm={this.deleteFilm}
+              handleFieldChange={this.handleFieldChange}
+              resetItem={this.resetItem}
+              updateDataItem={this.updateDataItem}
+              removeAllHighlights={this.removeAllHighlights}
             />
           ))}
         </div>
@@ -282,7 +249,15 @@ class Sakila extends Component {
 }
 
 const FilmItem = props => {
-  const { film, deleteFilm, putFilm, handleFieldChange, resetItem } = props;
+  const {
+    film,
+    deleteFilm,
+    putFilm,
+    handleFieldChange,
+    resetItem,
+    updateDataItem,
+    removeAllHighlights
+  } = props;
   return (
     // TODO: Uncollapsed edited highlight looks messy
     <div key={film.film_id} className="rounded border-info">
@@ -451,11 +426,13 @@ const FilmItem = props => {
                   }
                 });
 
-                // console.log(id);
-                // console.log(body);
-
-                // putFilm(film, body).then(res => console.log(res));
-                putFilm(film, body).then(res => res);
+                putFilm(film, body)
+                  .then(res => updateDataItem(film, body))
+                  // Removes highlights
+                  .then(res => {
+                    removeAllHighlights(film.film_id);
+                    return res;
+                  });
               }}
             >
               Save
