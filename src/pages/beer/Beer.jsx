@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BeerCard from "./BeerCard";
 import Pagination from "../../components/Pagination";
+import PageInfo from "../../components/PageInfo";
 
 // TODO: Check state, make sure everything is concise and necessary
 // TODO: Debating how much work each module (beer & pagination) will do for pagination and page number handling.
@@ -83,27 +84,22 @@ class Beer extends Component {
 
     return (
       <div className="container">
-        <a
-          className="btn btn-outline-secondary"
-          data-toggle="collapse"
-          href="#what-is-this-page"
-        >
-          What is this page?
-        </a>
-        <br />
-        <br />
-        <div className="collapse" id="what-is-this-page">
-          <div className="card card-body">
-            This is a template for viewing and buying beer from Brewdog's DIY
-            beer using Punk API. The panels display technical information about
-            the beer, a description, and an option to buy it. I'm using the Punk
-            API to get the data and Bootstrap for the front end.
-            <a href="https://punkapi.com/">Punk API</a>
-            <a href="https://www.brewdog.com/">Brewdog</a>
-          </div>
-
-          <br />
-        </div>
+        <PageInfo
+          message={
+            <React.Fragment>
+              This is a template for viewing and buying beer from Brewdog's DIY
+              beer using Punk API. The panels display technical information
+              about the beer, a description, and an option to buy it. I'm using
+              the Punk API to get the data and Bootstrap for the front end.
+              <a href="https://punkapi.com/" target="_blank">
+                Punk API
+              </a>
+              <a href="https://www.brewdog.com/" target="_blank">
+                Brewdog
+              </a>
+            </React.Fragment>
+          }
+        />
 
         <Pagination
           numItems={data.length}

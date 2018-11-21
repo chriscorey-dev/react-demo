@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import Pagination from "../../components/Pagination";
+import PageInfo from "../../components/PageInfo";
+
+import Joi from "joi";
 
 // TODO: Setup authentication for posts for public api built on back end.
 
 class Sakila extends Component {
   url = "https://api.chris-corey.com/api/sakila/film";
   state = {
-    // url: "http://localhost:3001/api/sakila/film",
-    // url: "https://api.chris-corey.com/api/sakila/film",
+    // TODO: Maybe keep a diffs object with changes to state's data
     data: null,
     isLoaded: false,
 
@@ -70,12 +72,54 @@ class Sakila extends Component {
     }).then(console.log("delete!"));
   };
 
+  getAllFilms = () => fetch(this.url).then(response => response.json());
+
+  makeObjectFromFields = film => {
+    const id = film.film_id;
+
+    const fields = document
+      .getElementById(`film-info-${id}`)
+      .querySelectorAll("input, textarea, select");
+
+    let output = {};
+
+    fields.forEach(field => {
+      output[field.name] = field.value;
+    });
+
+    return output;
+  };
+
+  // On field change, update validation. Can't put what I am imagining into words woo
+  filmValidation = film => {
+    const obj = this.makeObjectFromFields(film);
+    // console.log(obj);
+    // return obj;
+
+    const schema = Joi.object().keys({
+      film_id: Joi.number().integer(),
+      title: Joi.string()
+        .alphanum()
+        .max(255)
+        .required(),
+      description: Joi.string().alphanum(),
+      release_year: Joi.number()
+    });
+
+    return Joi.validate(
+      (obj,
+      schema,
+      (err, value) => {
+        console.log(err);
+        console.log(value);
+      })
+    );
+  };
+
   setNumOfPages = data =>
     this.setState({
       numPages: Math.ceil(data.length / this.state.itemsPerPage)
     });
-
-  getAllFilms = () => fetch(this.url).then(response => response.json());
 
   // Updates state's data with argument
   updateDataItem = (film, body) => {
@@ -139,6 +183,8 @@ class Sakila extends Component {
       this.removeClass(title, "border");
       this.removeClass(fieldPill, "border");
     }
+
+    console.log(this.filmValidation(film));
   };
 
   addClass = (element, className) => {
@@ -221,6 +267,27 @@ class Sakila extends Component {
 
     return (
       <div className="container">
+        <PageInfo
+          message={
+            <React.Fragment>
+              The Sakila database is a sample database provided by MySQL. It
+              simulates a DVD rental business. This project will eventually
+              include an interface that customers and employees can use to
+              manage the different aspects of the database. It uses my generated
+              REST API script to interact with the database.
+              <a href="https://dev.mysql.com/doc/sakila/en/" target="_blank">
+                Sakila DB
+              </a>
+              <a
+                href="https://github.com/chriscorey-dev/node-express-react-api"
+                target="_blank"
+              >
+                Generated REST API
+              </a>
+            </React.Fragment>
+          }
+        />
+
         <Pagination
           currPage={pageId}
           itemsPerPage={this.state.itemsPerPage}
@@ -256,6 +323,17 @@ class Sakila extends Component {
             </button>
           </form>
         </div>
+
+        {/* TODO: Add collapsable 'new item' film item */}
+        {/* <FilmItem
+          film={{
+            film_id: data[data.length - 1].film_id + 1,
+            title: "New Entry"
+          }}
+          key={data[data.length - 1].film_id + 1}
+          postFilm={this.postFilm}
+          handleFieldChange={() => null}
+        /> */}
 
         {/* TODO: Save-all button? */}
         <div className="list-group mt-2 mb-2">
@@ -321,6 +399,7 @@ const FilmItem = props => {
       <div className="collapse" id={`film-info-${film.film_id}`}>
         <div className="card card-body">
           {/* Film info form */}
+          {/* <ValidationItem filmValidation={this.filmValidation} /> */}
           <div>
             <div className="input-group mb-1 rounded border-info">
               <div className="input-group-prepend">
@@ -502,6 +581,22 @@ const FilmItem = props => {
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const ValidationItem = props => {
+  const { filmValidation } = props;
+  return (
+    <div className="card card-body">
+      <div>
+        <h6 className="font-weight-normal badge badge-warning">
+          Errors: <span className="">1</span>
+        </h6>
+        <ul className="font-weight-light">
+          <li>All fields required</li>
+        </ul>
       </div>
     </div>
   );
