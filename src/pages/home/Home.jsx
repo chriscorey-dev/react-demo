@@ -139,7 +139,7 @@ class Home extends Component {
 
           <li>
             <div>
-              <a href="http://banana.chris-corey.com:3309">
+              <a href="http://home.chris-corey.com:3309">
                 Dedicated Home Server
               </a>
             </div>
