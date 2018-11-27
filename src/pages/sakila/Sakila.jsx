@@ -3,6 +3,7 @@ import Pagination from "../../components/Pagination";
 import PageInfo from "../../components/PageInfo";
 
 import Joi from "joi";
+import { Link } from "react-router-dom";
 
 // TODO: Setup authentication for posts for public api built on back end.
 
@@ -314,13 +315,15 @@ class Sakila extends Component {
               // value={this.state.search}
               // onChange={e => this.handleSearchChange(e)}
             />
-            <button
-              className="btn btn-outline-primary btn-sm ml-1"
-              type="submit"
-              onClick={() => this.handleSearchSubmit()}
-            >
-              Search
-            </button>
+            <Link to={"/sakila/1"}>
+              <button
+                className="btn btn-outline-primary btn-sm ml-1"
+                type="submit"
+                onClick={() => this.handleSearchSubmit()}
+              >
+                Search
+              </button>
+            </Link>
           </form>
         </div>
 
