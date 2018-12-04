@@ -86,7 +86,10 @@ class Home extends Component {
           </li>
           <li>
             <div>
-              <a href="https://github.com/chriscorey-dev/node-express-react-api">
+              <a
+                href="https://github.com/chriscorey-dev/node-express-react-api"
+                target="_blank"
+              >
                 Generated Public REST API Template
               </a>
               <br />
@@ -101,7 +104,9 @@ class Home extends Component {
 
           <li>
             <div>
-              <a href="https://chris-corey.com">Revamp portfolio page</a>
+              <a href="https://chris-corey.com" target="_blank">
+                Revamp portfolio page
+              </a>
             </div>
           </li>
         </ul>
@@ -125,7 +130,10 @@ class Home extends Component {
         <ul>
           <li>
             <div>
-              <a href="https://play.google.com/store/apps/details?id=com.upperhouse.MontessoriSchoolOfDenver">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.upperhouse.MontessoriSchoolOfDenver"
+                target="_blank"
+              >
                 Montessori School of Denver Android App
               </a>
             </div>
@@ -133,13 +141,15 @@ class Home extends Component {
 
           <li>
             <div>
-              <a href="https://notes.mybrokencode.com">Note Taking Site</a>
+              <a href="https://notes.mybrokencode.com" target="_blank">
+                Note Taking Site
+              </a>
             </div>
           </li>
 
           <li>
             <div>
-              <a href="http://home.chris-corey.com:3309">
+              <a href="http://home.chris-corey.com:3309" target="_blank">
                 Dedicated Home Server
               </a>
             </div>
@@ -147,26 +157,44 @@ class Home extends Component {
 
           <li>
             <div>
-              <a href="https://github.com/chriscorey-dev">More on GitHub</a>
+              <a href="https://github.com/chriscorey-dev" target="_blank">
+                More on GitHub
+              </a>
             </div>
           </li>
         </ul>
 
         <div>
           <p>Connect with me</p>
-          <a href="https://github.com/chriscorey-dev" className="m-1">
+          <a
+            href="https://github.com/chriscorey-dev"
+            target="_blank"
+            className="m-1"
+          >
             GitHub
           </a>
           |
-          <a href="https://codepen.io/chriscorey_dev" className="m-1">
+          <a
+            href="https://codepen.io/chriscorey_dev"
+            target="_blank"
+            className="m-1"
+          >
             Codepen.io
           </a>
           |
-          <a href="https://twitter.com/chriscorey_dev" className="m-1">
+          <a
+            href="https://twitter.com/chriscorey_dev"
+            target="_blank"
+            className="m-1"
+          >
             Twitter
           </a>
           |
-          <a href="https://medium.com/@chriscorey_dev" className="m-1">
+          <a
+            href="https://medium.com/@chriscorey_dev"
+            target="_blank"
+            className="m-1"
+          >
             Medium
           </a>
         </div>

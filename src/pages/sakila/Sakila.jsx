@@ -223,7 +223,6 @@ class Sakila extends Component {
     this.setState({ search });
 
     // Sets state's page number. For pagination
-    // TODO: Navigate to page 1 when searching
     if (
       this.state.data.filter(film =>
         film.title.toLowerCase().includes(search.toLowerCase())
@@ -538,6 +537,7 @@ const FilmItem = props => {
 
             <button
               className="btn btn-outline-primary btn-sm mr-1"
+              title="Save changes"
               onClick={() => {
                 const elements = document
                   .getElementById(`film-info-${film.film_id}`)
@@ -571,6 +571,7 @@ const FilmItem = props => {
 
             <button
               className="btn btn-outline-primary btn-sm mr-1"
+              title="Revert Changes"
               onClick={() => resetItem(film)}
             >
               Reset
@@ -578,6 +579,7 @@ const FilmItem = props => {
 
             <button
               className="btn btn-outline-danger btn-sm mr-1"
+              title="Delete Film"
               onClick={() => deleteFilm(film)}
             >
               Delete

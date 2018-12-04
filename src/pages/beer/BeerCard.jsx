@@ -68,6 +68,7 @@ class BeerCard extends Component {
               <a
                 className="btn btn-primary"
                 href={`https://api.punkapi.com/v2/beers/${beer.id}`}
+                target="_blank"
               >
                 Buy Beer!
               </a>

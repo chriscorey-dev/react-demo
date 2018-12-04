@@ -31,12 +31,11 @@ class RestApi extends Component {
           <h5>Examples:</h5>
           <p>
             Try replacing this site's url path with these paths to access the
-            API.
+            API.{" "}
             <i>
-              {" "}
               (eg.{" "}
-              <a target="_blank" href="https://react.chris-corey.com/api">
-                react.chris-corey.com/api
+              <a href="https://react.chris-corey.com/api" target="_blank">
+                https://react.chris-corey.com/api
               </a>
               )
             </i>
