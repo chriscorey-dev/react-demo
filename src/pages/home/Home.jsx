@@ -10,6 +10,11 @@ class Home extends Component {
       <div className="container">
         <div className="card mb-2">
           <div className="card-header">
+            <img
+              style={{ width: "75px" }}
+              className="rounded-circle float-left mr-2"
+              src="/images/mug-01.jpg"
+            />
             <h2 className="mb-0 font-weight-normal">Chris Corey</h2>
             {/* <p className="mt-0 font-italic font-weight-light"> */}
             <p className="mt-0 font-weight-light">
@@ -128,24 +133,36 @@ class Home extends Component {
 
         <h5 className="font-weight-normal">Previous Projects:</h5>
         <ul>
+          
           <li>
             <div>
               <a
-                href="https://play.google.com/store/apps/details?id=com.upperhouse.MontessoriSchoolOfDenver"
+                href="https://play.google.com/store/apps/details?id=com.bisoncentral.buysomebison"
                 target="_blank"
               >
-                Montessori School of Denver Android App
+                National Bison Association Trading App
               </a>
             </div>
           </li>
 
           <li>
             <div>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.upperhouse.MontessoriSchoolOfDenver"
+                target="_blank"
+              >
+                Montessori School of Denver App
+              </a>
+            </div>
+          </li>
+
+          {/* <li>
+            <div>
               <a href="https://notes.mybrokencode.com" target="_blank">
                 Note Taking Site
               </a>
             </div>
-          </li>
+          </li> */}
 
           <li>
             <div>

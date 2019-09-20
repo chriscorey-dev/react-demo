@@ -27,3 +27,5 @@ When committed and pushed, this site is pushed to my server and automatically bu
   - In react
   - Figure out password storage and management
   - Mo security
+
+To start server: 'nodemon --exec npm start' || 'nodemon react-scripts start'
